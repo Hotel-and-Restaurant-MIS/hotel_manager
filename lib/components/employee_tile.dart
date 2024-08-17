@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 
 class EmployeeTile extends StatelessWidget {
   final String name;
@@ -31,12 +32,7 @@ class EmployeeTile extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         name,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Barlow',
-                          color: Colors.black,
-                        ),
+                        style: TextConstants.kMainTextStyle(),
                       ),
                       Text(
                         role,
@@ -44,7 +40,7 @@ class EmployeeTile extends StatelessWidget {
                           fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Barlow',
-                          color: Colors.black,
+                          color: Colors.black45,
                         ),
                       )
                     ],

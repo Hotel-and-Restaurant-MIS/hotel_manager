@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/employee_tile.dart';
 import 'package:hotel_manager_app/controllers/data/employee_data_controller.dart';
+import 'package:hotel_manager_app/views/single_employee_screen.dart';
 
 class EmployeeListBuilder extends GetxController {
   static EmployeeListBuilder instance = Get.find();
@@ -21,7 +22,9 @@ class EmployeeListBuilder extends GetxController {
           name: employee.name,
           role: employee.role,
           id: employee.id,
-          onTap: () {}));
+          onTap: (){
+            Get.to(() => SingleEmployeeScreen(employee: employee));
+          }));
     });
     return CustomScrollView(
       slivers: <Widget>[

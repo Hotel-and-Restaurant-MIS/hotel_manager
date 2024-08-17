@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/views/employee_screen/employee_list_builder.dart';
 
 class EmployeeScreen extends StatelessWidget {
@@ -12,13 +13,21 @@ class EmployeeScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 25.0, top: 20.0),
           child: Column(
             children: <Widget>[
-              Text(
-                'Employees',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.w800,
+              GestureDetector(
+                child: Icon(Icons.arrow_back),
+                onTap: (){
+                  Get.back();
+                },
+              ),
+              Center(
+                child: Text(
+                  'Employees',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               SizedBox(

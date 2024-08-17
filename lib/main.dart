@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/views/loading_screen.dart';
 import 'package:hotel_manager_app/views/welcome_screen.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class hotel_manager_app extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-    home: welcome_screen(),
+    home: LoadingScreen(),
     );
   }
 }

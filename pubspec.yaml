@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   get: ^4.6.6
   obs: ^0.0.4
+  loading_animation_widget: ^1.2.1
 
 dev_dependencies:
   flutter_test:

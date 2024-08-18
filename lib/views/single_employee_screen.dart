@@ -27,7 +27,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          child: Icon(Icons.arrow_back),
+                          child: Icon(Icons.arrow_back,size: 30.0,),
                           onTap: (){
                             Get.back();
                           },

@@ -13,22 +13,27 @@ class EmployeeScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 25.0, top: 20.0),
           child: Column(
             children: <Widget>[
-              GestureDetector(
-                child: Icon(Icons.arrow_back),
-                onTap: (){
-                  Get.back();
-                },
-              ),
-              Center(
-                child: Text(
-                  'Employees',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.w800,
+              Row(
+                children: [
+                  GestureDetector(
+                    child: Icon(Icons.arrow_back,size: 30.0,),
+                    onTap: (){
+                      Get.back();
+                    },
                   ),
-                ),
+                  SizedBox(width: 70.0,),
+                  Center(
+                    child: Text(
+                      'Employees',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 50.0,

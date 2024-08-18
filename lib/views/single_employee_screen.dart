@@ -69,7 +69,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                   Text(
                     'Role',
                     style: TextConstants.kMainTextStyle(
-                      fontSize: 23.0,
+                      fontSize: 21.0,
                     ),
                   ),
                   Text(
@@ -78,9 +78,12 @@ class SingleEmployeeScreen extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                   ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   Container(
                     height: 1.0,
-                    decoration: BoxDecoration(color: Colors.grey),
+                    decoration: BoxDecoration(color: Colors.black12),
                   ),
                   SizedBox(
                     height: 20.0,
@@ -88,7 +91,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                   Text(
                     'Email Address',
                     style: TextConstants.kMainTextStyle(
-                      fontSize: 23.0,
+                      fontSize: 21.0,
                     ),
                   ),
                   Text(
@@ -97,9 +100,12 @@ class SingleEmployeeScreen extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                   ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   Container(
                     height: 1.0,
-                    decoration: BoxDecoration(color: Colors.grey),
+                    decoration: BoxDecoration(color: Colors.black12),
                   ),
                   SizedBox(
                     height: 20.0,
@@ -107,7 +113,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                   Text(
                     'Phone Number',
                     style: TextConstants.kMainTextStyle(
-                      fontSize: 23.0,
+                      fontSize: 21.0,
                     ),
                   ),
                   Text(
@@ -116,9 +122,12 @@ class SingleEmployeeScreen extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                   ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   Container(
                     height: 1.0,
-                    decoration: BoxDecoration(color: Colors.grey),
+                    decoration: BoxDecoration(color: Colors.black12),
                   ),
                   SizedBox(
                     height: 20.0,
@@ -126,7 +135,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                   Text(
                     'NIC Number',
                     style: TextConstants.kMainTextStyle(
-                      fontSize: 23.0,
+                      fontSize: 21.0,
                     ),
                   ),
                   Text(
@@ -135,9 +144,12 @@ class SingleEmployeeScreen extends StatelessWidget {
                       fontSize: 18.0,
                     ),
                   ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
                   Container(
                     height: 1.0,
-                    decoration: BoxDecoration(color: Colors.grey),
+                    decoration: BoxDecoration(color: Colors.black12),
                   ),
                   SizedBox(
                     height: 20.0,

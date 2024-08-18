@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_manager_app/components/button_blue.dart';
+import 'booking_management_screen.dart';
 import 'employee_screen.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +43,9 @@ class WelcomeScreen extends StatelessWidget {
               ),
               ButtonBlue(
                   buttonText: 'Booking Management Portal',
-                  ontap: () {},
+                  ontap: () {
+                    Get.to(()=>BookingManagementScreen());
+                  },
                   width: 300.0),
               SizedBox(
                 height: 20.0,

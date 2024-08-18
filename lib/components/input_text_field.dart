@@ -19,23 +19,26 @@ class InputTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
-        height: 100.0,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: TextConstants.kMainTextStyle(),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: place_holder,
-                hintStyle: TextConstants.kSubTextStyle(),
+        height: 80.0,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextConstants.kMainTextStyle(),
               ),
-              controller: _textFieldController,
-              onSubmitted: submit_controller,
-            ),
-          ],
+              TextField(
+                decoration: InputDecoration(
+                  hintText: place_holder,
+                  hintStyle: TextConstants.kSubTextStyle(),
+                ),
+                controller: _textFieldController,
+                onSubmitted: submit_controller,
+              ),
+            ],
+          ),
         ),
       ),
     );

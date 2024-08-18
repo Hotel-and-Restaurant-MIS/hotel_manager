@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/views/employee_screen/employee_list_builder.dart';
 import 'package:hotel_manager_app/views/add_employee_screen.dart';
+import 'package:hotel_manager_app/views/welcome_screen.dart';
 
 class EmployeeScreen extends StatelessWidget {
   const EmployeeScreen({super.key});
@@ -20,7 +21,7 @@ class EmployeeScreen extends StatelessWidget {
                   GestureDetector(
                     child: Icon(Icons.arrow_back,size: 30.0,),
                     onTap: (){
-                      Get.back();
+                      Get.to(()=>WelcomeScreen());
                     },
                   ),
                   Expanded(

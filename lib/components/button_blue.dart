@@ -4,9 +4,10 @@ class ButtonBlue extends StatelessWidget {
   late String buttonText;
   final Function() ontap;
   double width;
+  double? textSize = 16.0;
 
   ButtonBlue(
-      {required this.buttonText, required this.ontap, required this.width});
+      {required this.buttonText, required this.ontap, required this.width, this.textSize});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ButtonBlue extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'Barlow',
-              fontSize:16.0,
+              fontSize:textSize,
               fontWeight: FontWeight.w700
             ),
                  ),

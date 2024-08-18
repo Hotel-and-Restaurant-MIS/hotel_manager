@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
+import 'package:hotel_manager_app/views/employee_screen.dart';
 
 import '../controllers/views/add_employee_screen/add_emp_state_controller.dart';
 
@@ -71,9 +73,22 @@ class AddEmployeeScreen extends StatelessWidget {
                         place_holder: 'Enter phone number',
                         submit_controller:
                             _addEmpStateController.setPhoneNumber),
+                    SizedBox(
+                      height: 50.0,
+                    ),
                   ],
                 ),
               ),
+              Center(
+                  child: ButtonBlue(
+                buttonText: 'Done',
+                ontap: () {
+                  () => _addEmpStateController.addEmployee;
+                        Get.to(()=>EmployeeScreen());
+                },
+                width: 100.0,
+                textSize: 18.0,
+              )),
             ],
           ),
         ),

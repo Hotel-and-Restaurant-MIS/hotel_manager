@@ -20,7 +20,7 @@ class TextConstants {
     FontWeight? fontWeight,
     Color? textColour}) {
     return TextStyle(
-      fontSize: fontSize ?? 20.0,
+      fontSize: fontSize ?? 18.0,
       fontWeight: fontWeight ?? FontWeight.w400,
       fontFamily: fontFamily ?? 'Barlow',
       color: textColour ?? Colors.black45,

@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/controllers/data/employee_data_controller.dart';
 import 'package:hotel_manager_app/models/employee.dart';
 
 
 class AddEmpStateController extends GetxController{
   static AddEmpStateController instance = Get.find();
+  
+  EmployeeDataController _edc = EmployeeDataController.instance;
 
   String? _name;
   String? _email;
@@ -42,7 +45,7 @@ class AddEmpStateController extends GetxController{
     update();
   }
 
-  void addEmployee(Employee newEmployee){
-
+  void addEmployee(){
+    _edc.addEmployee(employee: Employee(name: _name!, role: _role!, email: _email!, nic: _nic!, phone_no: _phone_number!, image_url: ''));
   }
 }

@@ -10,7 +10,7 @@ class Employee {
   Employee(
       {required this.name,
       required this.role,
-      required this.id,
+       this.id ='0',
       required this.email,
       required this.nic,
       required this.phone_no,

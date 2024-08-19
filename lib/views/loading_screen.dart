@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_manager_app/views/create_booking_screen.dart';
 import 'package:hotel_manager_app/views/welcome_screen.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -23,7 +24,7 @@ class LoadingScreen extends StatelessWidget {
         future: initController(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return WelcomeScreen();
+            return CreateBookingScreen();
           } else if (snapshot.hasError) {
             return Scaffold(
               body: SafeArea(

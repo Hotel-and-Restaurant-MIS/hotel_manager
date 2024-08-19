@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/views/create_booking_screen.dart';
 import 'package:hotel_manager_app/views/loading_screen.dart';
 import 'package:hotel_manager_app/views/welcome_screen.dart';
 

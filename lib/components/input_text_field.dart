@@ -20,7 +20,7 @@ class InputTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.only(right: 15.0,top: 15.0,bottom: 15.0),
       child: Container(
         height: 80.0,
         child: Padding(

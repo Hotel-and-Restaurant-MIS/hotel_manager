@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
+import 'package:hotel_manager_app/controllers/data/create_booking_data_controller.dart';
 import 'package:hotel_manager_app/models/booking.dart';
 
 class CreateBookingStateController extends GetxController {
   static CreateBookingStateController instance = Get.find();
 
-  BookingDataController _bdc = BookingDataController.instance;
+  CreateBookingDataController _cbdc = CreateBookingDataController.instance;
 
   String? _name;
   String? _email;
@@ -15,6 +17,8 @@ class CreateBookingStateController extends GetxController {
   String? _roomType;
   String? _noOfRooms;
   RxList<DateTime> _days = [DateTime(2024, 3, 27), DateTime(2024, 3, 30)].obs;
+  RxList _availableRooms =[].obs;
+
 
   String? get name => _name;
 
@@ -30,15 +34,23 @@ class CreateBookingStateController extends GetxController {
 
   List<DateTime>? get days => _days.value;
 
-  void setNoOfRooms(String value){
+  List get availableRooms => _availableRooms.value;
+
+
+  void  setAvailableRooms(RxList value) {
+    _availableRooms = value;
+  }
+
+  void setNoOfRooms(String value) {
     _noOfRooms = value;
+    getRoomList();
     update();
   }
+
   void setDays(List<DateTime> updatedValue) {
     _days.value = updatedValue;
     update();
-    print(_days[0]);
-    print(_days[1]);
+    getRoomList();
   }
 
   void setName(String value) {
@@ -51,10 +63,9 @@ class CreateBookingStateController extends GetxController {
     update();
   }
 
-
-
   void setRoomType(String value) {
     _roomType = value;
+    getRoomList();
     update();
   }
 
@@ -68,19 +79,15 @@ class CreateBookingStateController extends GetxController {
     update();
   }
 
-  // void addBooking() {
-  //   _bdc.addBooking(
-  //       booking: Booking(
-  //           customerName: _name!,
-  //           phoneNumber: _phoneNumber!,
-  //           nicNumber: _nic!,
-  //           email: _email!,
-  //           bookingStatus: 'Completed',
-  //           roomType: roomType,
-  //           noOfRooms: _noOfRooms!,
-  //           noOfDays: noOfDays,
-  //           arrivalDate: _arrivalDate!,
-  //           depatureDate: _departureDate!,
-  //           totalAmount: totalAmount));
-  // }
+  void getRoomList() {
+    // if (_noOfRooms != null &&
+    //     _noOfRooms!.isNotEmpty &&
+    //     _roomType != null &&
+    //     _roomType!.isNotEmpty &&
+    //     _days.isNotEmpty) {
+      print('conditions are true');
+       _cbdc.getRoomList(roomType: roomType, days: days, noOfRooms: noOfRooms);
+
+    //}
+  }
 }

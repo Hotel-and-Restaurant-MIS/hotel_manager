@@ -7,11 +7,14 @@ class RoomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100.0,
-      height: 40.0,
-      child: Text(
-        roomNumber,
-        style: TextStyle(color: Colors.blue, fontSize: 20.0),
+      decoration: BoxDecoration(color: Colors.black12,borderRadius: BorderRadius.circular(5.0),),
+      width: 20.0,
+      height: 20.0,
+      child: Center(
+        child: Text(
+          roomNumber,
+          style: TextStyle(color: Colors.blue, fontSize: 20.0),
+        ),
       ),
     );
   }

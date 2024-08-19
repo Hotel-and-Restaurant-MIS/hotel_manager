@@ -24,7 +24,7 @@ class LoadingScreen extends StatelessWidget {
         future: initController(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return CreateBookingScreen();
+            return WelcomeScreen();
           } else if (snapshot.hasError) {
             return Scaffold(
               body: SafeArea(

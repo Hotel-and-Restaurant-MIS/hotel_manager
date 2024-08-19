@@ -18,12 +18,12 @@ class RoomGridBuilder extends GetxController {
     return CustomScrollView(
         slivers: <Widget>[
           SliverPadding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             sliver: SliverGrid.count(
               crossAxisSpacing: 10,
-              childAspectRatio: 100/40,
+              childAspectRatio: 90/30,
               mainAxisSpacing: 20,
-              crossAxisCount: 3,
+              crossAxisCount: 4,
               children: children,
             ),
           ),

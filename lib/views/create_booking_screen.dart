@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/create_booking_state_controller.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_grid_builder.dart';
+import 'package:hotel_manager_app/views/booking_management_screen.dart';
 import 'package:intl/intl.dart';
 
 class CreateBookingScreen extends StatelessWidget {
@@ -195,7 +197,9 @@ class CreateBookingScreen extends StatelessWidget {
                         height: 100.0,
                         width: double.infinity,
                         // decoration: BoxDecoration(color: Colors.),
-                        child:Obx(()=>_rgb.buildGridByRoomId(),),
+                        child: Obx(
+                          () => _rgb.buildGridByRoomId(),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -203,6 +207,36 @@ class CreateBookingScreen extends StatelessWidget {
                     )
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Total',
+                        style: TextConstants.kMainTextStyle(fontSize: 23.0),
+                      ),
+                      Text(
+                        'Rs. 78500.00',
+                        style: TextConstants.kSubTextStyle(fontSize: 23.0),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Center(
+                  child: ButtonBlue(
+                    buttonText: 'Done',
+                    ontap: () {
+                      Get.to(() => BookingManagementScreen());
+                    },
+                    width: 100.0,
+                    textSize: 18.0,
+                  ),
+                ),
+                SizedBox(height: 20.0,),
               ],
             ),
           ),

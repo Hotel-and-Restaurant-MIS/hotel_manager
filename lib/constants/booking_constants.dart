@@ -67,6 +67,71 @@ List<Booking> kBookingList = [
     totalAmount: 2100.0,
   ),
   Booking(
+    customerName: 'John Doe',
+    phoneNumber: '0771234567',
+    nicNumber: '123456789V',
+    email: 'johndoe@gmail.com',
+    bookingStatus: 'Ongoing',
+    roomType: 'Deluxe',
+    noOfRooms: 2,
+    noOfDays: 3,
+    arrivalDate: DateTime(2024, 3, 20), // 20/March/2024
+    depatureDate: DateTime(2024, 3, 23), // 23/March/2024
+    totalAmount: 1500.0,
+  ),
+  Booking(
+    customerName: 'Jane Smith',
+    phoneNumber: '0779876543',
+    nicNumber: '987654321V',
+    email: 'janesmith@gmail.com',
+    bookingStatus: 'Completed',
+    roomType: 'Standard',
+    noOfRooms: 1,
+    noOfDays: 5,
+    arrivalDate: DateTime(2024, 4, 15), // 15/April/2024
+    depatureDate: DateTime(2024, 4, 20), // 20/April/2024
+    totalAmount: 2500.0,
+  ),
+  Booking(
+    customerName: 'Robert Brown',
+    phoneNumber: '0775678910',
+    nicNumber: '112233445V',
+    email: 'robertbrown@gmail.com',
+    bookingStatus: 'Ongoing',
+    roomType: 'Suite',
+    noOfRooms: 3,
+    noOfDays: 4,
+    arrivalDate: DateTime(2024, 5, 10), // 10/May/2024
+    depatureDate: DateTime(2024, 5, 14), // 14/May/2024
+    totalAmount: 3200.0,
+  ),
+  Booking(
+    customerName: 'Emily Johnson',
+    phoneNumber: '0773344556',
+    nicNumber: '556677889V',
+    email: 'emilyjohnson@gmail.com',
+    bookingStatus: 'Completed',
+    roomType: 'Deluxe',
+    noOfRooms: 2,
+    noOfDays: 2,
+    arrivalDate: DateTime(2024, 2, 25), // 25/February/2024
+    depatureDate: DateTime(2024, 2, 27), // 27/February/2024
+    totalAmount: 1800.0,
+  ),
+  Booking(
+    customerName: 'David Wilson',
+    phoneNumber: '0774455667',
+    nicNumber: '667788990V',
+    email: 'davidwilson@gmail.com',
+    bookingStatus: 'Ongoing',
+    roomType: 'Standard',
+    noOfRooms: 1,
+    noOfDays: 7,
+    arrivalDate: DateTime(2024, 6, 5), // 05/June/2024
+    depatureDate: DateTime(2024, 6, 12), // 12/June/2024
+    totalAmount: 2100.0,
+  ),
+  Booking(
     customerName: 'Sarah Davis',
     phoneNumber: '0779988776',
     nicNumber: '334455667V',

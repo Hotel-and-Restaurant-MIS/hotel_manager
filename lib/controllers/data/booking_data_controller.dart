@@ -20,26 +20,24 @@ class BookingDataController extends GetxController {
   }
 
   void _initController() {
-
     _bdnc.bookingMap.entries.forEach((entry) {
       String bookingStatus = entry.key;
       List bookingList = entry.value;
 
-      _bookingDataMap[bookingStatus] = bookingList
-          .map<Booking>((booking) {
-            Booking _booking;
-            try{
-              print(booking);
-              _booking = Booking.fromMap(booking);
-            }catch(e){
-              print(e);
-              rethrow;
-            }
+      _bookingDataMap[bookingStatus] = bookingList.map<Booking>((booking) {
+        Booking _booking;
+        try {
+          print(booking);
+          _booking = Booking.fromMap(booking);
+        } catch (e) {
+          print(e);
+          rethrow;
+        }
         return _booking;
-      })
-          .toList();
-      print('data controller init');
+      }).toList();
     });
-
+  }
+  void addBooking({required Booking booking}){
+    //TODO: complete add booking method.
   }
 }

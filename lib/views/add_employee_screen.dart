@@ -62,7 +62,7 @@ class AddEmployeeScreen extends StatelessWidget {
                         submit_controller: _addEmpStateController.setRole),
                     InputTextField(
                         title: 'NIC Number',
-                        place_holder: 'Enter nic',
+                        place_holder: 'Enter NIC',
                         submit_controller: _addEmpStateController.setNIC),
                     InputTextField(
                         title: 'Email Address',

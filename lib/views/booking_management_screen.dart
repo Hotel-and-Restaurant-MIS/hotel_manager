@@ -16,6 +16,21 @@ class BookingManagementScreen extends StatelessWidget {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
+            floatingActionButton: Padding(
+              padding: const EdgeInsets.only(right: 20.0, bottom: 20.0),
+              child: FloatingActionButton(
+                backgroundColor: Color(0xFFC0D6E8),
+                splashColor: Colors.grey,
+                child: Icon(
+                  Icons.add,
+                  size: 45.0,
+                  color: Colors.blue,
+                ),
+                onPressed: () {
+                  Get.to(() => CreateBookingScreen());
+                },
+              ),
+            ),
             appBar: AppBar(
               toolbarHeight: 60.0,
               title: Padding(
@@ -38,7 +53,7 @@ class BookingManagementScreen extends StatelessWidget {
                         Get.to(() => CreateBookingScreen());
                       },
                       child: Icon(
-                        Icons.add,
+                        Icons.event_available,
                         size: 35.0,
                         color: Colors.black,
                       ),
@@ -75,7 +90,7 @@ class BookingManagementScreen extends StatelessWidget {
               children: kBookingStatusList
                   .map<Widget>(
                     (status) => BookingListBuilder.instance
-                        .buildListByStatus( status: status),
+                        .buildListByStatus(status: status),
                   )
                   .toList(),
             ),

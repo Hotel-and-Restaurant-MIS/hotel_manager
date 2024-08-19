@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 
 class CreateBookingScreen extends StatelessWidget {
   CreateBookingStateController _cbsc = CreateBookingStateController.instance;
-  // List<DateTime> _dates= [DateTime(2024, 3, 25),DateTime(2024, 3, 30)];
 
+  List<String> roomTypeList = ['Deluxe', 'Suite', 'Presidential suite'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,19 +36,32 @@ class CreateBookingScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               InputTextField(
+                keyBoardType: TextInputType.name,
                   title: 'Name',
                   place_holder: 'Enter full name',
                   submit_controller: _cbsc.setName),
               InputTextField(
+                keyBoardType: TextInputType.emailAddress,
                   title: 'Email address',
                   place_holder: 'Enter email',
                   submit_controller: _cbsc.setEmail),
               InputTextField(
+                keyBoardType: TextInputType.phone,
+                  title: 'Phone number',
+                  place_holder: 'Enter phone number',
+                  submit_controller: _cbsc.setPhoneNumber),
+              InputTextField(
                   title: 'NIC number',
                   place_holder: 'Enter NIC number',
                   submit_controller: _cbsc.setNIC),
+              InputTextField(
+                keyBoardType: TextInputType.number,
+                  title: 'No of rooms',
+                  place_holder: 'Enter count',
+                  submit_controller: _cbsc.setNoOfRooms),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Container(
@@ -69,23 +82,33 @@ class CreateBookingScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Expanded(
-                            child: Obx(
-                              () => Column(
+                          Obx(
+                            () => Padding(
+                              padding: const EdgeInsets.only(left: 15.0),
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    children: <Widget>[],
+                                  ),
                                   if (_cbsc.days!.isNotEmpty)
                                     Text(
-                                      'Arrival date: ${DateFormat('yyyy/MM/dd').format(_cbsc.days![0])}',
+                                      'Arrival date        :   ${DateFormat('yyyy/MM/dd').format(_cbsc.days![0])}',
                                       style: TextConstants.kSubTextStyle(
                                           textColour: Colors.black87),
                                     ),
-                                  if (_cbsc.days!.length > 1)
-                                    Text(
-                                      'Departure date: ${DateFormat('yyyy/MM/dd').format(_cbsc.days![1])}',
-                                      style: TextConstants.kSubTextStyle(
-                                          textColour: Colors.black87),
-                                    ),
+                                  (_cbsc.days!.length > 1)
+                                      ? Text(
+                                          'Departure date :   ${DateFormat('yyyy/MM/dd').format(_cbsc.days![1])}',
+                                          style: TextConstants.kSubTextStyle(
+                                              textColour: Colors.black87),
+                                        )
+                                      : Text(
+                                          'Select departure date !',
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 15.0),
+                                        ),
                                 ],
                               ),
                             ),
@@ -110,7 +133,7 @@ class CreateBookingScreen extends StatelessWidget {
                               }
                             },
                             child: Padding(
-                              padding: const EdgeInsets.only(bottom: 0.0),
+                              padding: const EdgeInsets.only(right: 15.0),
                               child: Icon(
                                 Icons.calendar_month_outlined,
                                 size: 45.0,
@@ -122,6 +145,32 @@ class CreateBookingScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0,right: 15.0,bottom: 8.0,top: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text('Room Type',style: TextConstants.kMainTextStyle(),),
+                    SizedBox(width: 30.0,),
+                    DropdownMenu(
+
+                      hintText: '- Select -',
+                      width: 150.0,
+                      menuHeight: 150.0,
+                      dropdownMenuEntries:
+                          roomTypeList.map<DropdownMenuEntry<String>>((String value) {
+                        return DropdownMenuEntry<String>(value: value, label: value);
+                      }).toList(),
+                      // initialSelection: roomTypeList.first
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0,bottom: 8.0,left: 15.0),
+                child: Text('Rooms',style: TextConstants.kMainTextStyle(),),
               ),
             ],
           ),

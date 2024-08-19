@@ -7,6 +7,8 @@ import 'package:hotel_manager_app/controllers/views/add_employee_screen/add_emp_
 import 'package:hotel_manager_app/controllers/views/booking_management_screen/booking_list_builder.dart';
 import 'package:hotel_manager_app/controllers/views/employee_screen/employee_list_builder.dart';
 
+import 'controllers/views/create_booking_screen/create_booking_state_controller.dart';
+
 class ControllerInitializer {
   static bool _isIntialized = false;
 
@@ -16,11 +18,14 @@ class ControllerInitializer {
     try {
       await Get.putAsync(() => EmployeeDataNetworkController.create());
       await Get.putAsync(() => BookingDataNetworkController.create());
+
+
       Get.put(EmployeeDataController());
       Get.put(EmployeeListBuilder());
       Get.put(AddEmpStateController());
       Get.put(BookingDataController());
       Get.put(BookingListBuilder());
+      Get.put(CreateBookingStateController());
 
       _isIntialized = true;
     } catch (e) {

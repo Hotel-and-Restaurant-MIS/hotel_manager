@@ -13,7 +13,7 @@ class CreateBookingStateController extends GetxController {
   String? _phoneNumber;
   String? _nic;
   String? _roomType;
-  int? _noOfRooms;
+  String? _noOfRooms;
   RxList<DateTime> _days = [DateTime(2024, 3, 27), DateTime(2024, 3, 30)].obs;
 
   String? get name => _name;
@@ -26,10 +26,14 @@ class CreateBookingStateController extends GetxController {
 
   String? get roomType => _roomType;
 
-  int? get noOfRooms => _noOfRooms;
+  String? get noOfRooms => _noOfRooms;
 
   List<DateTime>? get days => _days.value;
 
+  void setNoOfRooms(String value){
+    _noOfRooms = value;
+    update();
+  }
   void setDays(List<DateTime> updatedValue) {
     _days.value = updatedValue;
     update();
@@ -47,10 +51,7 @@ class CreateBookingStateController extends GetxController {
     update();
   }
 
-  void setNoOfDays(int value) {
-    _noOfRooms = value;
-    update();
-  }
+
 
   void setRoomType(String value) {
     _roomType = value;

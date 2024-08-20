@@ -21,7 +21,7 @@ class BookingListBuilder extends GetxController {
           if(booking.bookingStatus =='Ongoing'){
             Get.to(()=>OngoingBookingScreen());
           }else if(booking.bookingStatus=='Completed'){
-            Get.to(()=> CompletedBookingScreen());
+            Get.to(()=> CompletedBookingScreen(booking: booking,));
           }else{
             print('Error Occurs, booking status miss match! ');
           }

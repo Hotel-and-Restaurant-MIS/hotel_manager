@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/booking_status.dart';
 import 'package:hotel_manager_app/controllers/views/booking_management_screen/booking_list_builder.dart';
+import 'package:hotel_manager_app/views/available_room_screen.dart';
 import 'package:hotel_manager_app/views/create_booking_screen.dart';
 
 class BookingManagementScreen extends StatelessWidget {
@@ -50,7 +51,7 @@ class BookingManagementScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => CreateBookingScreen());
+                        Get.to(() => AvailableRoomScreen());
                       },
                       child: Icon(
                         Icons.event_available,

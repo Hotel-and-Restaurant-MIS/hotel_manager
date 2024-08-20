@@ -127,6 +127,8 @@ class CreateBookingScreen extends StatelessWidget {
                                   context: context,
                                   config:
                                       CalendarDatePicker2WithActionButtonsConfig(
+                                        selectedDayHighlightColor: Colors.blue.withOpacity(0.8),
+                                        selectedRangeHighlightColor: Colors.blue.withOpacity(0.2),
                                     calendarType: CalendarDatePicker2Type.range,
                                   ),
                                   dialogSize: const Size(

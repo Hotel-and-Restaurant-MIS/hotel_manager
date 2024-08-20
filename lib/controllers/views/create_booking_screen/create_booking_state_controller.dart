@@ -17,8 +17,7 @@ class CreateBookingStateController extends GetxController {
   String? _roomType;
   String? _noOfRooms;
   RxList<DateTime> _days = [DateTime(2024, 3, 27), DateTime(2024, 3, 30)].obs;
-  RxList _availableRooms =[].obs;
-
+  RxList _availableRooms = [].obs;
 
   String? get name => _name;
 
@@ -36,8 +35,7 @@ class CreateBookingStateController extends GetxController {
 
   List get availableRooms => _availableRooms.value;
 
-
-  void  setAvailableRooms(RxList value) {
+  void setAvailableRooms(RxList value) {
     _availableRooms = value;
   }
 
@@ -85,8 +83,8 @@ class CreateBookingStateController extends GetxController {
     //     _roomType != null &&
     //     _roomType!.isNotEmpty &&
     //     _days.isNotEmpty) {
-      print('conditions are true');
-       _cbdc.getRoomList(roomType: roomType, days: days, noOfRooms: noOfRooms);
+    print('conditions are true');
+    _cbdc.getRoomList(roomType: roomType, days: days);
 
     //}
   }

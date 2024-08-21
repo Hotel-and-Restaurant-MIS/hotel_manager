@@ -10,17 +10,16 @@ class InputTextField extends StatelessWidget {
   final Function(String) submit_controller;
   final TextInputType keyBoardType;
 
-  InputTextField({
-    required this.title,
-    required this.place_holder,
-    required this.submit_controller,
-    this.keyBoardType=TextInputType.name
-  });
+  InputTextField(
+      {required this.title,
+      required this.place_holder,
+      required this.submit_controller,
+      this.keyBoardType = TextInputType.name});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 15.0,top: 15.0,bottom: 15.0),
+      padding: const EdgeInsets.only(right: 15.0, top: 15.0, bottom: 15.0),
       child: Container(
         height: 80.0,
         child: Padding(
@@ -39,7 +38,10 @@ class InputTextField extends StatelessWidget {
                   hintStyle: TextConstants.kSubTextStyle(fontSize: 17.0),
                 ),
                 controller: _textFieldController,
-                onSubmitted: submit_controller,
+                onChanged: (value){
+                  submit_controller(value);
+                },
+
               ),
             ],
           ),

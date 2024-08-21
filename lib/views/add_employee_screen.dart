@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
+import 'package:hotel_manager_app/constants/employee_roles.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:hotel_manager_app/views/employee_screen.dart';
 
@@ -56,10 +57,36 @@ class AddEmployeeScreen extends StatelessWidget {
                         title: 'Name',
                         place_holder: 'Enter name',
                         submit_controller: _addEmpStateController.setName),
-                    InputTextField(
-                        title: 'Role',
-                        place_holder: 'Enter role',
-                        submit_controller: _addEmpStateController.setRole),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 15.0, bottom: 8.0, top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Role',
+                            style: TextConstants.kMainTextStyle(),
+                          ),
+                          SizedBox(
+                            width: 30.0,
+                          ),
+                          DropdownMenu(
+                            hintText: '- Select -',
+                            width: 190.0,
+                            menuHeight: 150.0,
+                            dropdownMenuEntries: kEmployeeRoles
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                            onSelected: (String? selectedValue) {
+                              _addEmpStateController.setRole(selectedValue!);
+                            },
+                            // initialSelection: roomTypeList.first
+                          ),
+                        ],
+                      ),
+                    ),
                     InputTextField(
                         title: 'NIC Number',
                         place_holder: 'Enter NIC',
@@ -82,9 +109,9 @@ class AddEmployeeScreen extends StatelessWidget {
               Center(
                   child: ButtonBlue(
                 buttonText: 'Done',
-                ontap: () {
-                  () => _addEmpStateController.addEmployee;
-                        Get.to(()=>EmployeeScreen());
+                ontap: () async {
+                  await _addEmpStateController.addEmployee();
+                  Get.to(() => EmployeeScreen());
                 },
                 width: 100.0,
                 textSize: 18.0,

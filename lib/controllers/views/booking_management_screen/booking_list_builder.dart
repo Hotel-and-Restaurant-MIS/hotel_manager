@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/booking_tile.dart';
 import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
-import 'package:hotel_manager_app/views/completed_booking_screen.dart';
+import 'package:hotel_manager_app/views/booking_detail_screen.dart';
 import 'package:hotel_manager_app/views/ongoing_booking_screen.dart';
 
 class BookingListBuilder extends GetxController {
@@ -18,11 +18,21 @@ class BookingListBuilder extends GetxController {
         nic: booking.nicNumber,
         arrivalDate: booking.arrivalDate,
         onTap: () {
-          if(booking.bookingStatus =='Ongoing'){
-            Get.to(()=>OngoingBookingScreen());
-          }else if(booking.bookingStatus=='Completed'){
-            Get.to(()=> CompletedBookingScreen(booking: booking,));
-          }else{
+          if (booking.bookingStatus == 'Ongoing') {
+            Get.to(
+              () => BookingDetailScreen(
+                booking: booking,
+                isCompleted: false,
+              ),
+            );
+          } else if (booking.bookingStatus == 'Completed') {
+            Get.to(
+              () => BookingDetailScreen(
+                booking: booking,
+                isCompleted: true,
+              ),
+            );
+          } else {
             print('Error Occurs, booking status miss match! ');
           }
         },
@@ -31,10 +41,11 @@ class BookingListBuilder extends GetxController {
     return CustomScrollView(
       primary: false,
       slivers: <Widget>[
-        SliverPadding(padding: const EdgeInsets.all(15.0),
-        sliver: SliverList.list(
-          children: children,
-        ),
+        SliverPadding(
+          padding: const EdgeInsets.all(15.0),
+          sliver: SliverList.list(
+            children: children,
+          ),
         ),
       ],
     );

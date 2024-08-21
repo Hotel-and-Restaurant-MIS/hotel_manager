@@ -13,4 +13,9 @@ class CreateBookingNetworkController extends GetxController{
 
     return 10;
 }
+  List<String> getAvailableRoomList({required String roomType,required List<DateTime> dateList,required int noOfRooms}){
+
+    return ['105','205','303','401','409','511'];
+  }
+
 }

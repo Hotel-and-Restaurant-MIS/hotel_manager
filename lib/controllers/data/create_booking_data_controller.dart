@@ -26,8 +26,12 @@ class CreateBookingDataController extends GetxController {
     //TODO: this is hard coded. get the data from the back end and connect with tha network controller.
   }
 
-  int getAvailableNoOfRooms(
+  int getAvailableRoomCount(
       {required String roomType, required List<DateTime> dateList}) {
     return _cbnc.getAvailableRoomCount(roomType: roomType, dateList: dateList);
+  }
+  List<String> getAvailableRoomList(
+      {required String roomType, required List<DateTime> dateList,required int noOfRooms}) {
+    return _cbnc.getAvailableRoomList(roomType: roomType, dateList: dateList,noOfRooms: noOfRooms);
   }
 }

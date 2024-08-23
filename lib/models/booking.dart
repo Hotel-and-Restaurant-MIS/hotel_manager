@@ -4,7 +4,7 @@ class Booking {
   String nicNumber;
   String email;
   String bookingStatus;
-  String bookingId;
+  int bookingId;
   String roomType;
   int noOfRooms;
   int noOfDays;
@@ -19,7 +19,7 @@ class Booking {
       required this.nicNumber,
       required this.email,
       required this.bookingStatus,
-      this.bookingId = '15809',
+      required this.bookingId,
       required this.roomType,
       required this.noOfRooms,
       required this.noOfDays,

@@ -33,15 +33,15 @@ class BookingDetailStateController extends GetxController{
     print('button pressed');
     setIsVisible(!isVisible!);
   }
-  bool checkAvailability(
+  Future<bool> checkAvailability (
       {required int noOfRooms,
       required DateTime arrivalDate,
       required DateTime departureDAte,
-      required String roomType}){
+      required String roomType}) async{
     List<DateTime> dateList=[];
     dateList.add(arrivalDate);
     dateList.add(departureDAte);
-    List<String> roomList=_cbdc.getAvailableRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
+    List<String> roomList= await _cbdc.getAvailableRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
     setAvailableRoomList(roomList);
     if(roomList.isEmpty){
       setIsAvailable(false);

@@ -30,8 +30,8 @@ class CreateBookingDataController extends GetxController {
       {required String roomType, required List<DateTime> dateList}) {
     return _cbnc.getAvailableRoomCount(roomType: roomType, dateList: dateList);
   }
-  List<String> getAvailableRoomList(
-      {required String roomType, required List<DateTime> dateList,required int noOfRooms}) {
-    return _cbnc.getAvailableRoomList(roomType: roomType, dateList: dateList,noOfRooms: noOfRooms);
+  Future<List<String>> getAvailableRoomList (
+      {required String roomType, required List<DateTime> dateList,required int noOfRooms}) async{
+    return await _cbnc.getAvailableRoomList(roomType: roomType, dateList: dateList,noOfRooms: noOfRooms);
   }
 }

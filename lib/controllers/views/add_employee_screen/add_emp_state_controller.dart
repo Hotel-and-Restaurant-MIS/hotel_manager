@@ -56,7 +56,7 @@ class AddEmpStateController extends GetxController {
           email: _email!,
           nic: _nic!,
           phone_no: _phone_number!,
-          image_url: ''),
+          ),
     );
   }
 }

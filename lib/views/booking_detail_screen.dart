@@ -143,13 +143,19 @@ class BookingDetailScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      decoration:
-                          BoxDecoration(color: Colors.grey.withOpacity(0.2)),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            'Room Numbers',
-                            style: TextConstants.kSubTextStyle(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              'Room Numbers',
+                              style: TextConstants.kSubTextStyle(),
+                            ),
                           ),
                           Container(
                             width: double.infinity,
@@ -163,35 +169,88 @@ class BookingDetailScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                (!isCompleted)
-                    ? (_cbsc.checkAvailability(
-                            noOfRooms: booking.noOfRooms,
-                            arrivalDate: booking.arrivalDate,
-                            departureDAte: booking.departureDate,
-                            roomType: booking.roomType))
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 10.0, bottom: 10.0),
-                              child: Text(
-                                'Available !',
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 28.0),
+                // (!isCompleted)
+                //     ? (_cbsc.checkAvailability(
+                //             noOfRooms: booking.noOfRooms,
+                //             arrivalDate: booking.arrivalDate,
+                //             departureDAte: booking.departureDate,
+                //             roomType: booking.roomType))
+                //         ? Center(
+                //             child: Padding(
+                //               padding: const EdgeInsets.only(
+                //                   top: 10.0, bottom: 10.0),
+                //               child: Text(
+                //                 'Available !',
+                //                 style: TextStyle(
+                //                     color: Colors.green, fontSize: 28.0),
+                //               ),
+                //             ),
+                //           )
+                //         : Center(
+                //             child: Padding(
+                //               padding: const EdgeInsets.only(
+                //                   top: 10.0, bottom: 10.0),
+                //               child: Text(
+                //                 'Unavilable !',
+                //                 style: TextStyle(
+                //                     color: Colors.red, fontSize: 28.0),
+                //               ),
+                //             ),
+                //           )
+                //     : Container(),
+                if (!isCompleted)
+                  FutureBuilder<bool>(
+                    future: _cbsc.checkAvailability(
+                      noOfRooms: booking.noOfRooms,
+                      arrivalDate: booking.arrivalDate,
+                      departureDAte: booking.departureDate,
+                      roomType: booking.roomType,
+                    ),
+                    builder: (context, snapshot) {
+                      // Check if the future is still loading
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      // If there was an error
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            child: Text(
+                              'Error occurred!',
+                              style:
+                                  TextStyle(color: Colors.red, fontSize: 28.0),
+                            ),
+                          ),
+                        );
+                      }
+
+                      if (snapshot.hasData) {
+                        bool isAvailable = snapshot.data ?? false;
+                        return Center(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            child: Text(
+                              isAvailable ? 'Available!' : 'Unavailable!',
+                              style: TextStyle(
+                                color: isAvailable ? Colors.green : Colors.red,
+                                fontSize: 28.0,
                               ),
                             ),
-                          )
-                        : Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 10.0, bottom: 10.0),
-                              child: Text(
-                                'Unavilable !',
-                                style: TextStyle(
-                                    color: Colors.red, fontSize: 28.0),
-                              ),
-                            ),
-                          )
-                    : Container(),
+                          ),
+                        );
+                      }
+
+                      // Default case (if snapshot has no data)
+                      return Container();
+                    },
+                  ),
+
                 Visibility(
                   visible: !isCompleted,
                   child: Padding(
@@ -224,13 +283,35 @@ class BookingDetailScreen extends StatelessWidget {
                   height: 20.0,
                 ),
                 Visibility(
-                  visible: !isCompleted,
-                    child: Center(
-                        child: ButtonBlue(
-                            buttonText: 'Conform Booking',
-                            ontap: () {//TODO: add roomList to the booking object and store database.
-                               },
-                            width: 150.0))),
+                    visible: !isCompleted,
+                    child: Column(
+                      children: [
+                        Center(
+                          child: ButtonBlue(
+                              buttonText: 'Conform Reservation',
+                              ontap: () {
+                                //TODO: add roomList to the booking object and store database.
+                              },
+                              width: 150.0),
+                        ),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(10.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                'Cancel Reservation',
+
+                                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
                 SizedBox(
                   height: 30.0,
                 ),

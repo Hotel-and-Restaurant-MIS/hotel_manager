@@ -1,28 +1,21 @@
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/constants/employees_constants.dart';
+import 'package:hotel_manager_app/models/employee.dart';
+
 
 class EmployeeDataNetworkController extends GetxController{
   static EmployeeDataNetworkController instance = Get.find();
-  List _employeeList=[];
 
-
-  List get employeeList => _employeeList;
-
-  set employeeList(List value) {
-    _employeeList = value;
+  Future<List<Map<String, dynamic>>> getEmployees() async{
+    //TODO:send http request
+    List<Map<String, dynamic>> currentEmployeeList = [];
+    return currentEmployeeList;
   }
 
-  EmployeeDataNetworkController._();
-  static Future<EmployeeDataNetworkController> create() async{
-    EmployeeDataNetworkController controller = EmployeeDataNetworkController._();
-    await controller._initController();
-    return controller;
+  Future<Employee> addEmploy({required Employee employee}) async{
+    //TODO:send http with jason employee
+    Map<String,dynamic> employeeMap = employee.toMap();
+    return Employee(name: '', role: 'Chef', id: '001', email: 'email', nic: 'nic', phone_no: 'phone_no');
   }
 
-  Future<void> _initController() async{
-    await Future.delayed(Duration(milliseconds: 500,),);
 
-    employeeList = kEmployeeList;
-
-  }
 }

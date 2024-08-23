@@ -5,7 +5,7 @@ class Employee {
   final String email;
   final String nic;
   final String phone_no;
-  final String image_url;
+
 
   Employee(
       {required this.name,
@@ -14,5 +14,5 @@ class Employee {
       required this.email,
       required this.nic,
       required this.phone_no,
-      required this.image_url});
+      });
 }

@@ -3,7 +3,7 @@ import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:intl/intl.dart';
 
 class BookingTile extends StatelessWidget {
-  String bookingId;
+  int bookingId;
   String nic;
   DateTime arrivalDate;
   Function() onTap;
@@ -56,7 +56,7 @@ class BookingTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      bookingId,
+                      '$bookingId',
                       style: TextConstants.kMainTextStyle(
                           fontWeight: FontWeight.w700),
                     ),

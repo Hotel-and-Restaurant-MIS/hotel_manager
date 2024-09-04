@@ -4,6 +4,7 @@ import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
 import 'package:hotel_manager_app/constants/employee_roles.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
+import 'package:hotel_manager_app/models/form_valid_response.dart';
 import 'package:hotel_manager_app/views/employee_screen.dart';
 
 import '../controllers/views/add_employee_screen/add_emp_state_controller.dart';
@@ -54,6 +55,7 @@ class AddEmployeeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     InputTextField(
+                        keyBoardType: TextInputType.name,
                         title: 'Name',
                         place_holder: 'Enter name',
                         submit_controller: _addEmpStateController.setName),
@@ -88,14 +90,17 @@ class AddEmployeeScreen extends StatelessWidget {
                       ),
                     ),
                     InputTextField(
+                        keyBoardType: TextInputType.text,
                         title: 'NIC Number',
                         place_holder: 'Enter NIC',
                         submit_controller: _addEmpStateController.setNIC),
                     InputTextField(
+                        keyBoardType: TextInputType.emailAddress,
                         title: 'Email Address',
                         place_holder: 'Enter email',
                         submit_controller: _addEmpStateController.setEmail),
                     InputTextField(
+                        keyBoardType: TextInputType.phone,
                         title: 'Phone Number',
                         place_holder: 'Enter phone number',
                         submit_controller:
@@ -110,8 +115,36 @@ class AddEmployeeScreen extends StatelessWidget {
                   child: ButtonBlue(
                 buttonText: 'Done',
                 ontap: () async {
-                  await _addEmpStateController.addEmployee();
-                  Get.to(() => EmployeeScreen());
+                  print("called");
+                  FormValidResponse formValidResponse =
+                      _addEmpStateController.validationForm();
+                  if (formValidResponse.formValid) {
+                    await _addEmpStateController.addEmployee();
+                    Get.to(() => EmployeeScreen());
+                  } else {
+                    Get.dialog(
+                      Dialog(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 2, color: Colors.greenAccent),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text('${formValidResponse.message}'),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Close'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                 },
                 width: 100.0,
                 textSize: 18.0,

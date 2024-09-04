@@ -1,12 +1,19 @@
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/data/employee_data_controller.dart';
 import 'package:hotel_manager_app/models/employee.dart';
+import 'package:hotel_manager_app/models/form_valid_response.dart';
 
 class AddEmpStateController extends GetxController {
   static AddEmpStateController instance = Get.find();
 
   EmployeeDataController _edc = EmployeeDataController.instance;
 
+  final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-]+$");
+  final RegExp _phoneRegExp =
+      RegExp(r"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
+  final RegExp _emailRegExp = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+  // final RegExp _nicRegExp = RegExp(r"^\d{9}[Vv]|\d{12}$");
+  final RegExp _nicRegExp = RegExp(r"^\d{9}[Vv]|\d{12}$");
   String? _name;
   String? _email;
   String? _phone_number;
@@ -51,12 +58,60 @@ class AddEmpStateController extends GetxController {
   Future<void> addEmployee() async {
     await _edc.addEmployee(
       employee: Employee(
-          name: _name!,
-          role: _role!,
-          email: _email!,
-          nic: _nic!,
-          phone_no: _phone_number!,
-          ),
+        name: _name!,
+        role: _role!,
+        email: _email!,
+        nic: _nic!,
+        phone_no: _phone_number!,
+        id: '-11',
+      ),
     );
+  }
+
+  FormValidResponse validationForm() {
+    final validationRules = [
+      {
+        'condition': _name == null || _name == '',
+        'message': 'Name cannot be empty!'
+      },
+      {
+        'condition': !_nameRegExp.hasMatch(_name ?? ''),
+        'message': 'Name is not valid!'
+      },
+      {
+        'condition': _role == null,
+        'message': 'Select job role!',
+      },
+      {
+        'condition': _email == null || _email == '',
+        'message': 'Email cannot be empty!'
+      },
+      {
+        'condition': !_emailRegExp.hasMatch(_email ?? ''),
+        'message': 'Email is not valid!'
+      },
+      {
+        'condition': _phone_number == null || _phone_number == '',
+        'message': 'Phone number cannot be empty!'
+      },
+      {
+        'condition': !_phoneRegExp.hasMatch(_phone_number ?? ''),
+        'message': 'Phone number is not valid!'
+      },
+      {
+        'condition': _nic == null || _nic == '',
+        'message': 'NIC cannot be empty!'
+      },
+      {
+        'condition': !_nicRegExp.hasMatch(_nic ?? ''),
+        'message': 'NIC is not valid!',
+      }
+    ];
+    for (final rule in validationRules) {
+      if (rule['condition'] as bool) {
+        return FormValidResponse(formValid: false, message: rule['message'] as String);
+      }
+    }
+    return FormValidResponse(formValid: true);
   }
 }

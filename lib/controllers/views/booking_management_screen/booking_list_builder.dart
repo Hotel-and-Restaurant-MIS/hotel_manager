@@ -12,42 +12,46 @@ class BookingListBuilder extends GetxController {
 
   Widget buildListByStatus({required String status}) {
     List<Widget> children = [];
-    _bdc.bookingDataMap[status]!.forEach((booking) {
-      children.add(BookingTile(
-        bookingId: booking.bookingId,
-        nic: booking.nicNumber,
-        arrivalDate: booking.arrivalDate,
-        onTap: () {
-          if (booking.bookingStatus == 'Ongoing') {
-            Get.to(
-              () => BookingDetailScreen(
-                booking: booking,
-                isCompleted: false,
-              ),
-            );
-          } else if (booking.bookingStatus == 'Completed') {
-            Get.to(
-              () => BookingDetailScreen(
-                booking: booking,
-                isCompleted: true,
-              ),
-            );
-          } else {
-            print('Error Occurs, booking status miss match! ');
-          }
-        },
-      ));
-    });
-    return CustomScrollView(
-      primary: false,
-      slivers: <Widget>[
-        SliverPadding(
-          padding: const EdgeInsets.all(15.0),
-          sliver: SliverList.list(
-            children: children,
+    if (_bdc.bookingDataMap[status] == null || _bdc.bookingDataMap[status]!.isEmpty) {  //TODO: there is error when empty
+      return Center(child: Text('No $status booking',style: TextStyle(color: Colors.black38,fontSize:20.0 ),));
+    } else {
+      _bdc.bookingDataMap[status]!.forEach((booking) {
+        children.add(BookingTile(
+          bookingId: booking.bookingId,
+          nic: booking.nicNumber,
+          arrivalDate: booking.arrivalDate,
+          onTap: () {
+            if (booking.bookingStatus == 'Ongoing') {
+              Get.to(
+                () => BookingDetailScreen(
+                  booking: booking,
+                  isCompleted: false,
+                ),
+              );
+            } else if (booking.bookingStatus == 'Completed') {
+              Get.to(
+                () => BookingDetailScreen(
+                  booking: booking,
+                  isCompleted: true,
+                ),
+              );
+            } else {
+              print('Error Occurs, booking status miss match! ');
+            }
+          },
+        ));
+      });
+      return CustomScrollView(
+        primary: false,
+        slivers: <Widget>[
+          SliverPadding(
+            padding: const EdgeInsets.all(15.0),
+            sliver: SliverList.list(
+              children: children,
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    }
   }
 }

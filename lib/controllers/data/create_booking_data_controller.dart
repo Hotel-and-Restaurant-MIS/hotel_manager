@@ -11,27 +11,28 @@ class CreateBookingDataController extends GetxController {
   CreateBookingNetworkController _cbnc =
       CreateBookingNetworkController.instance;
 
-  RxList _roomList = [].obs;
+  List<String> _roomList = [''].obs;
 
-  List get roomList => _roomList.value;
+  List get roomList => _roomList;
 
-  void setRoomList(RxList value) {
+  void setRoomList(List<String> value) {
     _roomList = value;
   }
 
-  void getRoomList({required roomType, required days}) {
-    var roomList = _cbnc.getAvailableRoomsList(roomType: roomType, days: days);
-    setRoomList(roomList.obs);
+  Future<void> getRoomList({required roomType, required days}) async{
+    var roomList = await _cbnc.getAvailableRoomList(roomType: roomType, dateList: days);
+    setRoomList(roomList);
     print('data $roomList');
     //TODO: this is hard coded. get the data from the back end and connect with tha network controller.
   }
 
-  int getAvailableRoomCount(
-      {required String roomType, required List<DateTime> dateList}) {
-    return _cbnc.getAvailableRoomCount(roomType: roomType, dateList: dateList);
+  Future<int> getAvailableRoomCount(
+      {required String roomType, required List<DateTime> dateList}) async{
+    return await _cbnc.getAvailableRoomCount(roomType: roomType, dateList: dateList);
   }
-  Future<List<String>> getAvailableRoomList (
+
+  Future<List<String>> getAvailableDateRoomList (
       {required String roomType, required List<DateTime> dateList,required int noOfRooms}) async{
-    return await _cbnc.getAvailableRoomList(roomType: roomType, dateList: dateList,noOfRooms: noOfRooms);
+    return await _cbnc.getAvailableDateRoomList(roomType:roomType,dateList:dateList,noOfRooms:noOfRooms);
   }
 }

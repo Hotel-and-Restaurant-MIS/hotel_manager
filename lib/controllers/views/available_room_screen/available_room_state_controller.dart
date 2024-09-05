@@ -37,16 +37,15 @@ class AvailableRoomStateController extends GetxController {
     update();
   }
 
-  void getAllAvailableRooms({required List<DateTime> dateList}) {
-
-    var suiteCount =
-        _cbdc.getAvailableRoomCount(roomType: 'Suite', dateList: dateList);
+  void getAllAvailableRooms({required List<DateTime> dateList}) async {
+    int suiteCount = await _cbdc.getAvailableRoomCount(
+        roomType: 'Suite', dateList: dateList);
     setSuiteCount(suiteCount);
-    var presidentialSuiteCount = _cbdc.getAvailableRoomCount(
+    var presidentialSuiteCount = await _cbdc.getAvailableRoomCount(
         roomType: 'Presidential Suite', dateList: dateList);
     setPresidentialSuiteCount(presidentialSuiteCount);
-    var deluxeCount =
-        _cbdc.getAvailableRoomCount(roomType: 'Deluxe', dateList: dateList);
+    var deluxeCount = await _cbdc.getAvailableRoomCount(
+        roomType: 'Deluxe', dateList: dateList);
     setDeluxeCount(deluxeCount);
   }
 }

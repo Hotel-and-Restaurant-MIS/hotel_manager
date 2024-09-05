@@ -41,7 +41,7 @@ class BookingDetailStateController extends GetxController{
     List<DateTime> dateList=[];
     dateList.add(arrivalDate);
     dateList.add(departureDAte);
-    List<String> roomList= await _cbdc.getAvailableRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
+    List<String> roomList= await _cbdc.getAvailableDateRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
     setAvailableRoomList(roomList);
     if(roomList.isEmpty){
       setIsAvailable(false);

@@ -26,7 +26,7 @@ class Booking {
       required this.arrivalDate,
       required this.departureDate,
       required this.totalAmount,
-      required this.roomList });
+      required this.roomList});
 
   factory Booking.fromMap(Map<String, dynamic> map) {
     return Booking(
@@ -34,7 +34,7 @@ class Booking {
         phoneNumber: map['phoneNumber'],
         nicNumber: map['nicNumber'],
         email: map['email'],
-        bookingId: map['bookingId'] ,
+        bookingId: map['bookingId'],
         bookingStatus: map['bookingStatus'],
         roomType: map['roomType'],
         noOfRooms: map['noOfRooms'],
@@ -42,7 +42,7 @@ class Booking {
         arrivalDate: map['arrivalDate'],
         departureDate: map['departureDate'],
         totalAmount: map['totalAmount'],
-    roomList: map['roomList']);
+        roomList: map['roomList']);
   }
 
   Map<String, dynamic> toMap() {
@@ -59,8 +59,7 @@ class Booking {
       'arrivalDate': arrivalDate,
       'departureDate': departureDate,
       'totalAmount': totalAmount,
-      'roomList':roomList,
-
+      'roomList': roomList,
     };
   }
 }

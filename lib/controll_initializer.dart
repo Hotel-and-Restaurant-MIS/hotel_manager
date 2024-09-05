@@ -13,7 +13,6 @@ import 'package:hotel_manager_app/controllers/views/booking_management_screen/bo
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_grid_builder.dart';
 import 'package:hotel_manager_app/controllers/views/employee_screen/employee_list_builder.dart';
 
-
 import 'controllers/views/create_booking_screen/create_booking_state_controller.dart';
 
 class ControllerInitializer {
@@ -23,21 +22,19 @@ class ControllerInitializer {
 
   static Future<void> initAllControllers() async {
     try {
-      await Get.putAsync(() => EmployeeDataNetworkController.create());
-      await Get.putAsync(() => BookingDataNetworkController.create());
-
+      Get.put(EmployeeDataNetworkController());
       Get.put(CreateBookingNetworkController());
       Get.put(CreateBookingDataController());
-      Get.put(AvailableRoomStateController());
+      await Get.putAsync(() => EmployeeDataController.create());
+      await Get.putAsync(() => BookingDataNetworkController.create());
+      Get.put(BookingDetailStateController());
+      Get.put(CompletedRoomGridBuilder());
       Get.put(RoomGridBuilder());
-      Get.put(EmployeeDataController());
       Get.put(EmployeeListBuilder());
       Get.put(AddEmpStateController());
       Get.put(BookingDataController());
       Get.put(BookingListBuilder());
       Get.put(CreateBookingStateController());
-      Get.put(BookingDetailStateController());
-      Get.put(CompletedRoomGridBuilder());
 
       _isIntialized = true;
     } catch (e) {
@@ -46,3 +43,27 @@ class ControllerInitializer {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+// Get.put(EmployeeDataNetworkController());
+// Get.put(BookingDataNetworkController());
+// await Get.putAsync(() => EmployeeDataController.create());
+// await Get.putAsync(() => BookingDataController.create());
+// Get.put(CreateBookingNetworkController());
+// Get.put(CreateBookingDataController());
+// Get.put(AvailableRoomStateController());
+// Get.put(RoomGridBuilder());
+// Get.put(EmployeeListBuilder());
+// Get.put(AddEmpStateController());
+// Get.put(BookingListBuilder());
+// Get.put(CreateBookingStateController());
+// Get.put(BookingDetailStateController());
+// Get.put(CompletedRoomGridBuilder());

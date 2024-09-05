@@ -12,7 +12,7 @@ class AddEmpStateController extends GetxController {
   final RegExp _phoneRegExp =
       RegExp(r"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
   final RegExp _emailRegExp = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-  // final RegExp _nicRegExp = RegExp(r"^\d{9}[Vv]|\d{12}$");
+
   final RegExp _nicRegExp = RegExp(r"^\d{9}[Vv]|\d{12}$");
   String? _name;
   String? _email;
@@ -109,7 +109,8 @@ class AddEmpStateController extends GetxController {
     ];
     for (final rule in validationRules) {
       if (rule['condition'] as bool) {
-        return FormValidResponse(formValid: false, message: rule['message'] as String);
+        return FormValidResponse(
+            formValid: false, message: rule['message'] as String);
       }
     }
     return FormValidResponse(formValid: true);

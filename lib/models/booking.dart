@@ -4,13 +4,14 @@ class Booking {
   String nicNumber;
   String email;
   String bookingStatus;
-  String bookingId;
+  int bookingId;
   String roomType;
   int noOfRooms;
   int noOfDays;
   DateTime arrivalDate;
-  DateTime depatureDate;
+  DateTime departureDate;
   double totalAmount;
+  List<String> roomList;
 
   Booking(
       {required this.customerName,
@@ -18,13 +19,14 @@ class Booking {
       required this.nicNumber,
       required this.email,
       required this.bookingStatus,
-      this.bookingId = '001',
+      required this.bookingId,
       required this.roomType,
       required this.noOfRooms,
       required this.noOfDays,
       required this.arrivalDate,
-      required this.depatureDate,
-      required this.totalAmount});
+      required this.departureDate,
+      required this.totalAmount,
+      required this.roomList});
 
   factory Booking.fromMap(Map<String, dynamic> map) {
     return Booking(
@@ -32,14 +34,15 @@ class Booking {
         phoneNumber: map['phoneNumber'],
         nicNumber: map['nicNumber'],
         email: map['email'],
-        bookingId: map['bookingId'] ,
+        bookingId: map['bookingId'],
         bookingStatus: map['bookingStatus'],
         roomType: map['roomType'],
         noOfRooms: map['noOfRooms'],
         noOfDays: map['noOfDays'],
         arrivalDate: map['arrivalDate'],
-        depatureDate: map['departureDate'],
-        totalAmount: map['totalAmount']);
+        departureDate: map['departureDate'],
+        totalAmount: map['totalAmount'],
+        roomList: map['roomList']);
   }
 
   Map<String, dynamic> toMap() {
@@ -54,9 +57,9 @@ class Booking {
       'noOfRooms': noOfRooms,
       'noOfDays': noOfDays,
       'arrivalDate': arrivalDate,
-      'departureDate': depatureDate,
+      'departureDate': departureDate,
       'totalAmount': totalAmount,
-
+      'roomList': roomList,
     };
   }
 }

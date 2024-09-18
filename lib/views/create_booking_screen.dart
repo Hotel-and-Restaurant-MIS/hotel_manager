@@ -6,6 +6,7 @@ import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/create_booking_state_controller.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_grid_builder.dart';
+import 'package:hotel_manager_app/models/form_valid_response.dart';
 import 'package:hotel_manager_app/views/booking_management_screen.dart';
 import 'package:intl/intl.dart';
 
@@ -127,6 +128,10 @@ class CreateBookingScreen extends StatelessWidget {
                                   context: context,
                                   config:
                                       CalendarDatePicker2WithActionButtonsConfig(
+                                    selectedDayHighlightColor:
+                                        Colors.blue.withOpacity(0.8),
+                                    selectedRangeHighlightColor:
+                                        Colors.blue.withOpacity(0.2),
                                     calendarType: CalendarDatePicker2Type.range,
                                   ),
                                   dialogSize: const Size(
@@ -176,6 +181,9 @@ class CreateBookingScreen extends StatelessWidget {
                           return DropdownMenuEntry<String>(
                               value: value, label: value);
                         }).toList(),
+                          onSelected:(String? value){
+                          _cbsc.setRoomType(value!);
+                          }
                         // initialSelection: roomTypeList.first
                       ),
                     ],
@@ -230,13 +238,47 @@ class CreateBookingScreen extends StatelessWidget {
                   child: ButtonBlue(
                     buttonText: 'Done',
                     ontap: () {
-                      Get.to(() => BookingManagementScreen());
+                      FormValidResponse formValidResponse =
+                          _cbsc.validationForm();
+                      if (formValidResponse.formValid) {
+                        Get.to(() => BookingManagementScreen());
+                        //TODO: pass the booking to the backend.
+                      } else {
+                        Get.dialog(
+                          Dialog(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.white,
+                                border: Border.all(
+                                    width: 2, color: Colors.white12),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                 mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  SizedBox(height: 20.0,),
+                                  Text('${formValidResponse.message}',style: TextStyle(color: Colors.black,fontSize: 17.0),),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Close'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }
                     },
                     width: 100.0,
                     textSize: 18.0,
                   ),
                 ),
-                SizedBox(height: 20.0,),
+                SizedBox(
+                  height: 20.0,
+                ),
               ],
             ),
           ),

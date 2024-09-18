@@ -5,7 +5,7 @@ import 'package:hotel_manager_app/views/add_employee_screen.dart';
 import 'package:hotel_manager_app/views/welcome_screen.dart';
 
 class EmployeeScreen extends StatelessWidget {
-  const EmployeeScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,1 @@
+List<String> kEmployeeRoles = ['Cleaner','Chef','Waiter','Restaurant Manager','Room Attendant'];

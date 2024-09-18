@@ -32,7 +32,7 @@ class WelcomeScreen extends StatelessWidget {
                     fontSize: 45.0),
               ),
               Text(
-                'Restuarent',
+                'Restuarant',
                 style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Garamond',

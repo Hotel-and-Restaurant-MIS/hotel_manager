@@ -6,6 +6,9 @@ import 'package:hotel_manager_app/controllers/network/booking_data_network_contr
 import 'package:hotel_manager_app/controllers/network/create_booking_network_controller.dart';
 import 'package:hotel_manager_app/controllers/network/employee_data_network_controller.dart';
 import 'package:hotel_manager_app/controllers/views/add_employee_screen/add_emp_state_controller.dart';
+import 'package:hotel_manager_app/controllers/views/available_room_screen/available_room_state_controller.dart';
+import 'package:hotel_manager_app/controllers/views/booking_detail_screen/booking_detail_state_controller.dart';
+import 'package:hotel_manager_app/controllers/views/booking_detail_screen/completed_room_grid_builder.dart';
 import 'package:hotel_manager_app/controllers/views/booking_management_screen/booking_list_builder.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_grid_builder.dart';
 import 'package:hotel_manager_app/controllers/views/employee_screen/employee_list_builder.dart';
@@ -19,25 +22,48 @@ class ControllerInitializer {
 
   static Future<void> initAllControllers() async {
     try {
-      await Get.putAsync(() => EmployeeDataNetworkController.create());
-      await Get.putAsync(() => BookingDataNetworkController.create());
-
+      Get.put(EmployeeDataNetworkController());
       Get.put(CreateBookingNetworkController());
       Get.put(CreateBookingDataController());
+      await Get.putAsync(() => EmployeeDataController.create());
+      await Get.putAsync(() => BookingDataNetworkController.create());
+      Get.put(BookingDetailStateController());
+      Get.put(CompletedRoomGridBuilder());
       Get.put(RoomGridBuilder());
-      Get.put(EmployeeDataController());
       Get.put(EmployeeListBuilder());
       Get.put(AddEmpStateController());
       Get.put(BookingDataController());
       Get.put(BookingListBuilder());
       Get.put(CreateBookingStateController());
 
-
       _isIntialized = true;
     } catch (e) {
-
       print(e);
       rethrow;
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+// Get.put(EmployeeDataNetworkController());
+// Get.put(BookingDataNetworkController());
+// await Get.putAsync(() => EmployeeDataController.create());
+// await Get.putAsync(() => BookingDataController.create());
+// Get.put(CreateBookingNetworkController());
+// Get.put(CreateBookingDataController());
+// Get.put(AvailableRoomStateController());
+// Get.put(RoomGridBuilder());
+// Get.put(EmployeeListBuilder());
+// Get.put(AddEmpStateController());
+// Get.put(BookingListBuilder());
+// Get.put(CreateBookingStateController());
+// Get.put(BookingDetailStateController());
+// Get.put(CompletedRoomGridBuilder());

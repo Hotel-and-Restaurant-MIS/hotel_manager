@@ -1,17 +1,49 @@
-
-
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/constants/employees_constants.dart';
 import 'package:hotel_manager_app/controllers/network/employee_data_network_controller.dart';
 import 'package:hotel_manager_app/models/employee.dart';
 
-class EmployeeDataController extends GetxController{
+class EmployeeDataController extends GetxController {
   static EmployeeDataController instance = Get.find();
+  final EmployeeDataNetworkController _ednc = EmployeeDataNetworkController.instance;
 
-  EmployeeDataNetworkController _ednc = EmployeeDataNetworkController.instance;
+  List<Employee> _employeeList = [];
 
-  List get employeeList => _ednc.employeeList;
+  List<Employee> get employeeList => _employeeList;
 
-  void addEmployee({required Employee employee}){
-      //TODO: add new employee to the database.
+  EmployeeDataController._();
+
+  static Future<EmployeeDataController> create() async {
+    final EmployeeDataController controller = EmployeeDataController._();
+    await controller._initController();
+    return controller;
   }
+
+  Future<void> _initController() async {
+    _employeeList = await _getEmployeeList();
+  }
+
+  Future<List<Employee>> _getEmployeeList() async {
+    // List<Employee> employeeList = [];
+    // try{
+    //   List<Map<String,dynamic>> employeeMapList = await _ednc.getEmployees();
+    //   employeeMapList.forEach((Map<String, dynamic> employeeMap){
+    //     employeeList.add(Employee.fromMap(employeeMap));
+    //   });
+    // }catch(e){
+    //
+    // }
+    // finally{
+    //   return employeeList;
+    // }
+    return kEmployeeList;
+  }
+
+  Future<void> addEmployee({required Employee employee}) async{
+    Map<String, dynamic> newEmployeeMap = await _ednc.addEmploy(employee: employee);
+
+    _employeeList.add(Employee.fromMap(newEmployeeMap));
+  }
+
+
 }

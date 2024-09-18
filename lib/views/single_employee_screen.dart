@@ -50,10 +50,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                   SizedBox(
                     height: 30.0,
                   ),
-                  CircleAvatar(
-                    radius: 80.0,
-                    backgroundImage: NetworkImage(employee.image_url),
-                  ),
+                  Icon(Icons.account_circle_sharp,size: 200.0,color: Colors.black45,),
                   //   Image.network(employee.image_url),
                 ],
               ),

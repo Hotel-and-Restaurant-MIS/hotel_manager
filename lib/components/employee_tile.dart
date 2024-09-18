@@ -17,49 +17,59 @@ class EmployeeTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        height: 90.0,
-        width: 300.0,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 25.0,left: 8.0,top: 8.0,bottom: 8.0,),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        name,
-                        style: TextConstants.kMainTextStyle(),
-                      ),
-                      Text(
-                        role,
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Barlow',
-                          color: Colors.black45,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 25.0,top: 10.0,bottom: 10.0),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(width: 1.0, color: Colors.grey),
+              borderRadius: BorderRadius.circular(5.0)),
+          height: 70.0,
+          width: 300.0,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 25.0,
+              left: 8.0,
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          name,
+                          style: TextConstants.kMainTextStyle(),
                         ),
-                      )
-                    ],
-                  ),
-                  Text(
-                    id,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Barlow',
-                      color: Colors.black,
+                        Text(
+                          role,
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Barlow',
+                            color: Colors.black45,
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10.0,),
-              Container(height: 1.0,decoration: BoxDecoration(color: Colors.grey),),
-            ],
+                    Text(
+                      id,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Barlow',
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
+                ),
 
+                //Container(height: 1.0,decoration: BoxDecoration(color: Colors.grey),),
+              ],
+            ),
           ),
         ),
       ),

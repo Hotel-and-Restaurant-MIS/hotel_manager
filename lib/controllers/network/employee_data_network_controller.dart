@@ -1,28 +1,59 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/constants/employees_constants.dart';
+import 'package:hotel_manager_app/constants/network_constants.dart';
+import 'package:hotel_manager_app/exception/network_exception.dart';
+import 'package:hotel_manager_app/models/employee.dart';
+import 'package:http/http.dart' as http;
 
-class EmployeeDataNetworkController extends GetxController{
+import '../../exception/list_pass_exception.dart';
+
+class EmployeeDataNetworkController extends GetxController {
   static EmployeeDataNetworkController instance = Get.find();
-  List _employeeList=[];
 
+  Future<List<Map<String, dynamic>>> getEmployees() async {
+    try{
+      List<Map<String, dynamic>> currentEmployeeList = [];
 
-  List get employeeList => _employeeList;
+      Uri uri = Uri.parse('${NetworkConstants.baseUrl}/employee/all');
 
-  set employeeList(List value) {
-    _employeeList = value;
+      var response = await http.get(uri);
+
+      if(response.statusCode == 200)
+        {
+          try{
+            currentEmployeeList = response as List<Map<String, dynamic>>;
+            return currentEmployeeList;
+          }
+          catch(e){
+
+            throw ListPassException(message: 'List Passing error at getting employee list ');
+          }
+        }
+      else{
+        throw NetworkException(message: 'Network Error due to : Status ${response.statusCode}, ${response.body}');
+      }
+      return currentEmployeeList;
+    } catch(e){
+      print('Error getting/parsing employee data');
+      print(e.toString());
+      throw NetworkException(message: e.toString());
+    }
   }
 
-  EmployeeDataNetworkController._();
-  static Future<EmployeeDataNetworkController> create() async{
-    EmployeeDataNetworkController controller = EmployeeDataNetworkController._();
-    await controller._initController();
-    return controller;
-  }
+  Future<Map<String, dynamic>> addEmploy({required Employee employee}) async {
+    Map<String, dynamic> employeeMap = {};
+    Uri url = Uri.parse('${NetworkConstants.baseUrl}/employee/add');
+    var response = await http.get(url);
 
-  Future<void> _initController() async{
-    await Future.delayed(Duration(milliseconds: 500,),);
-
-    employeeList = kEmployeeList;
-
+    if (response.statusCode == 200) {
+      var employeeMap = jsonDecode(response.body) as Map<String, dynamic>;
+      print('employee data have');
+      return employeeMap;
+    } else {
+      print(
+          'addEmploy Request failed with status: ${response.statusCode}.');
+      throw NetworkException();
+    }
   }
 }

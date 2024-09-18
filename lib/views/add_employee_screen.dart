@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
+import 'package:hotel_manager_app/constants/employee_roles.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
+import 'package:hotel_manager_app/models/form_valid_response.dart';
 import 'package:hotel_manager_app/views/employee_screen.dart';
 
 import '../controllers/views/add_employee_screen/add_emp_state_controller.dart';
@@ -53,22 +55,52 @@ class AddEmployeeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     InputTextField(
+                        keyBoardType: TextInputType.name,
                         title: 'Name',
                         place_holder: 'Enter name',
                         submit_controller: _addEmpStateController.setName),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 15.0, bottom: 8.0, top: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Role',
+                            style: TextConstants.kMainTextStyle(),
+                          ),
+                          SizedBox(
+                            width: 30.0,
+                          ),
+                          DropdownMenu(
+                            hintText: '- Select -',
+                            width: 190.0,
+                            menuHeight: 150.0,
+                            dropdownMenuEntries: kEmployeeRoles
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                            onSelected: (String? selectedValue) {
+                              _addEmpStateController.setRole(selectedValue!);
+                            },
+                            // initialSelection: roomTypeList.first
+                          ),
+                        ],
+                      ),
+                    ),
                     InputTextField(
-                        title: 'Role',
-                        place_holder: 'Enter role',
-                        submit_controller: _addEmpStateController.setRole),
-                    InputTextField(
+                        keyBoardType: TextInputType.text,
                         title: 'NIC Number',
                         place_holder: 'Enter NIC',
                         submit_controller: _addEmpStateController.setNIC),
                     InputTextField(
+                        keyBoardType: TextInputType.emailAddress,
                         title: 'Email Address',
                         place_holder: 'Enter email',
                         submit_controller: _addEmpStateController.setEmail),
                     InputTextField(
+                        keyBoardType: TextInputType.phone,
                         title: 'Phone Number',
                         place_holder: 'Enter phone number',
                         submit_controller:
@@ -82,9 +114,37 @@ class AddEmployeeScreen extends StatelessWidget {
               Center(
                   child: ButtonBlue(
                 buttonText: 'Done',
-                ontap: () {
-                  () => _addEmpStateController.addEmployee;
-                        Get.to(()=>EmployeeScreen());
+                ontap: () async {
+                  print("called");
+                  FormValidResponse formValidResponse =
+                      _addEmpStateController.validationForm();
+                  if (formValidResponse.formValid) {
+                    await _addEmpStateController.addEmployee();
+                    Get.to(() => EmployeeScreen());
+                  } else {
+                    Get.dialog(
+                      Dialog(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(width: 2, color: Colors.greenAccent),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text('${formValidResponse.message}'),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Close'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                 },
                 width: 100.0,
                 textSize: 18.0,

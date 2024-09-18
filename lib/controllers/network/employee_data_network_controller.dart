@@ -6,6 +6,8 @@ import 'package:hotel_manager_app/exception/network_exception.dart';
 import 'package:hotel_manager_app/models/employee.dart';
 import 'package:http/http.dart' as http;
 
+import '../../exception/list_pass_exception.dart';
+
 class EmployeeDataNetworkController extends GetxController {
   static EmployeeDataNetworkController instance = Get.find();
 
@@ -24,7 +26,8 @@ class EmployeeDataNetworkController extends GetxController {
             return currentEmployeeList;
           }
           catch(e){
-            //handle parse error
+
+            throw ListPassException(message: 'List Passing error at getting employee list ');
           }
         }
       else{

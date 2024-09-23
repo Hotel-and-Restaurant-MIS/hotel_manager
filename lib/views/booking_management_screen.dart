@@ -55,8 +55,16 @@ class BookingManagementScreen extends StatelessWidget {
                       },
                       child: Icon(
                         Icons.event_available,
-                        size: 35.0,
+                        size: 40.0,
                         color: Colors.black,
+                        shadows: [
+                          BoxShadow(
+                            offset: Offset(2.0, 2),
+                            spreadRadius: 2.0,
+                            blurRadius: 10.0,
+                            color: Colors.black38,
+                          ),
+                        ],
                       ),
                     )
                   ],

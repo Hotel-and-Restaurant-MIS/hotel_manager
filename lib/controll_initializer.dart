@@ -28,9 +28,11 @@ class ControllerInitializer {
       Get.put(LoginNetworkController());
       Get.put(LoginDataController());
       Get.put(LoginStateController());
-      Get.put(EmployeeDataNetworkController());
       Get.put(CreateBookingNetworkController());
       Get.put(CreateBookingDataController());
+      Get.put(AvailableRoomStateController());
+      Get.put(EmployeeDataNetworkController());
+
       await Get.putAsync(() => EmployeeDataController.create());
       await Get.putAsync(() => BookingDataNetworkController.create());
       Get.put(BookingDetailStateController());

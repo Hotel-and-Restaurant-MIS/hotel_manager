@@ -23,27 +23,24 @@ class BookingTile extends StatelessWidget {
             left: 8.0, right: 8.0, top: 12.0, bottom: 12.0),
         child: Container(
           decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(
               color: Colors.black12,
               width: 1.0,
             ),
-            gradient: LinearGradient(
-              colors: [
-                Colors.grey.withOpacity(0.2),
-                Colors.grey.withOpacity(0.5)
-              ], // Define gradient colors
-              begin: Alignment.topLeft, // Start the gradient at the top left
-              end:
-                  Alignment.bottomRight, // End the gradient at the bottom right
-            ),
             boxShadow: [
               BoxShadow(
-                color:
-                    Colors.grey.withOpacity(0.2), // Shadow color with opacity
-                spreadRadius: 1, // How much the shadow spreads
-                blurRadius: 3, // How blurry the shadow is
-                offset: Offset(0, 3), // X and Y offsets of the shadow
+                color: Colors.grey[200]!, // Light grey color for a softer shadow
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: Offset(-4, -4), // positions the shadow to the top left
+              ),
+              BoxShadow(
+                color: Colors.grey[350]!, // Darker grey color for a noticeable shadow
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: Offset(4, 4), // positions the shadow to the bottom right
               ),
             ],
           ),

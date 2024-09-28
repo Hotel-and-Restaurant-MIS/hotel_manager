@@ -20,8 +20,8 @@ class EmployeeListBuilder extends GetxController {
     _edc.employeeList.forEach((employee) {
       children.add(EmployeeTile(
           name: employee.name,
-          role: employee.role,
-          id: employee.id,
+          role: employee.role!,
+          id: employee.id!,
           onTap: (){
             Get.to(() => SingleEmployeeScreen(employee: employee));
           }));

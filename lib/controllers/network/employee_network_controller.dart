@@ -12,29 +12,30 @@ class EmployeeDataNetworkController extends GetxController {
   static EmployeeDataNetworkController instance = Get.find();
 
   Future<List<Map<String, dynamic>>> getEmployees() async {
-    try{
+    try {
       List<Map<String, dynamic>> currentEmployeeList = [];
 
       Uri uri = Uri.parse('${NetworkConstants.baseUrl}/employee/all');
 
       var response = await http.get(uri);
 
-      if(response.statusCode == 200)
-        {
-          try{
-            currentEmployeeList = response as List<Map<String, dynamic>>;
-            return currentEmployeeList;
-          }
-          catch(e){
-
-            throw ListPassException(message: 'List Passing error at getting employee list ');
-          }
+      if (response.statusCode == 200) {
+        try {
+          var jsonResponse = jsonDecode(response.body) as List;
+          currentEmployeeList = jsonResponse
+              .map((employee) => employee as Map<String, dynamic>)
+              .toList();
+          return currentEmployeeList;
+        } catch (e) {
+          throw ListPassException(
+              message: 'List Passing error at getting employee list ');
         }
-      else{
-        throw NetworkException(message: 'Network Error due to : Status ${response.statusCode}, ${response.body}');
+      } else {
+        throw NetworkException(
+            message:
+                'Network Error due to : Status ${response.statusCode}, ${response.body}');
       }
-      return currentEmployeeList;
-    } catch(e){
+    } catch (e) {
       print('Error getting/parsing employee data');
       print(e.toString());
       throw NetworkException(message: e.toString());
@@ -42,17 +43,24 @@ class EmployeeDataNetworkController extends GetxController {
   }
 
   Future<Map<String, dynamic>> addEmploy({required Employee employee}) async {
-    Map<String, dynamic> employeeMap = {};
+    // Map<String, dynamic> employeeMap = {};
     Uri url = Uri.parse('${NetworkConstants.baseUrl}/employee/add');
-    var response = await http.get(url);
+
+    var body = jsonEncode(employee.toMap());
+
+    var response = await http.post(url,
+        headers: {
+          'content-Type': 'application/json',
+        },
+        body: body);
 
     if (response.statusCode == 200) {
-      var employeeMap = jsonDecode(response.body) as Map<String, dynamic>;
+      Map<String, dynamic> employeeMap =
+          jsonDecode(response.body) as Map<String, dynamic>;
       print('employee data have');
       return employeeMap;
     } else {
-      print(
-          'addEmploy Request failed with status: ${response.statusCode}.');
+      print('addEmploy Request failed with status: ${response.statusCode}.');
       throw NetworkException();
     }
   }

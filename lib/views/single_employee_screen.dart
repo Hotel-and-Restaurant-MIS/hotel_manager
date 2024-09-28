@@ -70,7 +70,7 @@ class SingleEmployeeScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    employee.role,
+                    employee.role!,
                     style: TextConstants.kSubTextStyle(
                       fontSize: 18.0,
                     ),

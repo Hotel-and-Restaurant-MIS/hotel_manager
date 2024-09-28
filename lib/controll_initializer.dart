@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/data/login_data_controller.dart';
 import 'package:hotel_manager_app/controllers/network/booking_data_network_controller.dart';
 import 'package:hotel_manager_app/controllers/network/create_booking_network_controller.dart';
-import 'package:hotel_manager_app/controllers/network/employee_data_network_controller.dart';
+import 'package:hotel_manager_app/controllers/network/employee_network_controller.dart';
 import 'package:hotel_manager_app/controllers/network/login_network_controller.dart';
 import 'package:hotel_manager_app/controllers/views/add_employee_screen/add_emp_state_controller.dart';
 import 'package:hotel_manager_app/controllers/views/available_room_screen/available_room_state_controller.dart';

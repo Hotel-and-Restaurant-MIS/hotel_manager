@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 60.0,
                 ),
                 Text(
                   'Manager Login',
@@ -136,6 +136,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 20.0),
                   child: ButtonBlue(

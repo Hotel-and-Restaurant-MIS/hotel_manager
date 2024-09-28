@@ -1,3 +1,3 @@
 enum Role{
-  Cleaner,Chef,Waiter,Restaurent_Manager,
+  Cleaner,Chef,Waiter,Restaurant_Manager,Receptionist
 }

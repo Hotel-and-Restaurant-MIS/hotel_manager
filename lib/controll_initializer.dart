@@ -1,9 +1,11 @@
+import 'package:hotel_manager_app/controllers/data/available_rooms_data_controller.dart';
 import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
 import 'package:hotel_manager_app/controllers/data/create_booking_data_controller.dart';
 import 'package:hotel_manager_app/controllers/data/employee_data_controller.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/data/login_data_controller.dart';
-import 'package:hotel_manager_app/controllers/network/booking_data_network_controller.dart';
+import 'package:hotel_manager_app/controllers/network/available_room_network_controller.dart';
+import 'package:hotel_manager_app/controllers/network/booking_network_controller.dart';
 import 'package:hotel_manager_app/controllers/network/create_booking_network_controller.dart';
 import 'package:hotel_manager_app/controllers/network/employee_network_controller.dart';
 import 'package:hotel_manager_app/controllers/network/login_network_controller.dart';
@@ -30,11 +32,13 @@ class ControllerInitializer {
       Get.put(LoginStateController());
       Get.put(CreateBookingNetworkController());
       Get.put(CreateBookingDataController());
+      Get.put(AvailableRoomsNetworkController());
+      Get.put(AvailableRoomsDataController());
       Get.put(AvailableRoomStateController());
       Get.put(EmployeeDataNetworkController());
 
       await Get.putAsync(() => EmployeeDataController.create());
-      await Get.putAsync(() => BookingDataNetworkController.create());
+      await Get.putAsync(() => BookingNetworkController.create());
       Get.put(BookingDetailStateController());
       Get.put(CompletedRoomGridBuilder());
       Get.put(RoomGridBuilder());

@@ -2,12 +2,13 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
+import 'package:hotel_manager_app/controllers/data/available_rooms_data_controller.dart';
 import 'package:hotel_manager_app/controllers/views/available_room_screen/available_room_state_controller.dart';
 import 'package:intl/intl.dart';
 
 class AvailableRoomScreen extends StatelessWidget {
   AvailableRoomStateController _arsc = AvailableRoomStateController.instance;
-
+  AvailableRoomsDataController _ardc = AvailableRoomsDataController.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +153,7 @@ class AvailableRoomScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Presidential Suite',
+                      'Single Room',
                       style: TextConstants.kMainTextStyle(
                         fontSize: 20.0,
                       ),
@@ -165,7 +166,7 @@ class AvailableRoomScreen extends StatelessWidget {
                               top: 5.0, bottom: 5.0, left: 15.0, right: 15.0),
                           child: Obx(
                             () => Text(
-                              '${_arsc.presidentialSuiteCount} Available',
+                              '${_ardc.singleRoomCount} Available',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -180,7 +181,7 @@ class AvailableRoomScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     Text(
-                      'Deluxe',
+                      'Double Room',
                       style: TextConstants.kMainTextStyle(
                         fontSize: 20.0,
                       ),
@@ -193,7 +194,7 @@ class AvailableRoomScreen extends StatelessWidget {
                               top: 5.0, bottom: 5.0, left: 15.0, right: 15.0),
                           child: Obx(
                             () => Text(
-                              '${_arsc.DeluxeCount} Available',
+                              '${_ardc.doubleRoomCount} Available',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -208,7 +209,7 @@ class AvailableRoomScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     Text(
-                      'Suite',
+                      'Twin Room',
                       style: TextConstants.kMainTextStyle(
                         fontSize: 20.0,
                       ),
@@ -221,7 +222,7 @@ class AvailableRoomScreen extends StatelessWidget {
                               top: 5.0, bottom: 5.0, left: 15.0, right: 15.0),
                           child: Obx(
                             () => Text(
-                              '${_arsc.suiteCount} Available',
+                              '${_ardc.twinRoomCount} Available',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),

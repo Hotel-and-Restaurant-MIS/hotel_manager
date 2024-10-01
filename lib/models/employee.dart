@@ -24,18 +24,19 @@ class Employee {
       'email': email,
       'nic': nic,
       'phoneNumber': phone_no,
-      'roleId':roleId
+      'roleId': roleId
     };
   }
 
   // Factory constructor to create an instance of Employee from a JSON
   factory Employee.fromMap(Map<String, dynamic> map) {
     return Employee(
-        id: map['employeeId'].toString() ?? '',
-        name: map['name'] ?? '',
-        role: map['employeeRole']['roleType'] ?? '',
-        email: map['email'] ?? '',
-        nic: map['nic'].toString() ?? '',
-        phone_no: map['phoneNumber'].toString() ?? '');
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      phone_no: map['phoneNumber'].toString() ?? '',
+      nic: map['nic'].toString() ?? '',
+      id: map['employeeId'].toString() ?? '',
+      role: map['employeeRole']?? '',
+    );
   }
 }

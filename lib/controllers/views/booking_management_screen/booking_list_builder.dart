@@ -21,7 +21,7 @@ class BookingListBuilder extends GetxController {
           nic: booking.nicNumber,
           arrivalDate: booking.arrivalDate,
           onTap: () {
-            if (booking.bookingStatus == 'Ongoing') {
+            if (booking.bookingStatus == 'OnGoing') {
               Get.to(
                 () => BookingDetailScreen(
                   booking: booking,

@@ -3,13 +3,13 @@ import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 
 class EmployeeTile extends StatelessWidget {
   final String name;
-  final String role;
+  final String? role;
   final String id;
   final Function() onTap;
 
   EmployeeTile({
     required this.name,
-    required this.role,
+    this.role = "waiter",
     required this.id,
     required this.onTap
   });
@@ -62,7 +62,7 @@ class EmployeeTile extends StatelessWidget {
                       style: TextConstants.kMainTextStyle(),
                     ),
                     Text(
-                      role,
+                      role!,
                       style: TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.w500,

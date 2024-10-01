@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/constants/network_constants.dart';
+import 'package:hotel_manager_app/exception/list_pass_exception.dart';
+import 'package:hotel_manager_app/exception/network_exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -28,27 +30,6 @@ class CreateBookingNetworkController extends GetxController {
     return ['101', '206', '305'];
   }
 
-  Future<int> getAvailableRoomCount(
-      {required String roomType, required List<DateTime> dateList}) async {
-    Map<String, String> queryParams = {
-      'from': DateFormat('yyyy-MM-dd').format(dateList[0]),
-      'to': DateFormat('yyyy-MM-dd').format(dateList[1]),
-    };
-
-    Uri url = Uri.http(
-        '${NetworkConstants.baseUrl}/reservations/booking/roomType/available',
-        '',
-        queryParams);
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body) as int;
-      return jsonResponse;
-    } else {
-      print(
-          'getAvailableRoomCount Request failed with status: ${response.statusCode}.');
-      return 0;
-    }
-  }
 
   Future<List<String>> getAvailableDateRoomList(
       {required String roomType,

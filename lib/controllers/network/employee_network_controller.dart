@@ -43,25 +43,29 @@ class EmployeeDataNetworkController extends GetxController {
   }
 
   Future<Map<String, dynamic>> addEmploy({required Employee employee}) async {
-    // Map<String, dynamic> employeeMap = {};
-    Uri url = Uri.parse('${NetworkConstants.baseUrl}/employee/add');
+    try{
+      Uri url = Uri.parse('${NetworkConstants.baseUrl}/employee/add');
 
-    var body = jsonEncode(employee.toMap());
+      var body = jsonEncode(employee.toMap());
 
-    var response = await http.post(url,
-        headers: {
-          'content-Type': 'application/json',
-        },
-        body: body);
+      var response = await http.post(url,
+          headers: {
+            'content-Type': 'application/json',
+          },
+          body: body);
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> employeeMap =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      print('employee data have');
-      return employeeMap;
-    } else {
-      print('addEmploy Request failed with status: ${response.statusCode}.');
-      throw NetworkException();
+      if (response.statusCode == 200) {
+        Map<String, dynamic> employeeMap =
+        jsonDecode(response.body) as Map<String, dynamic>;
+        return employeeMap;
+      } else {
+        print('addEmploy Request failed with status: ${response.statusCode}.');
+        throw NetworkException();
+      }
+    }catch(e){
+      print('Error adding new employee');
+      print(e.toString());
+      throw NetworkException(message: e.toString());
     }
   }
 }

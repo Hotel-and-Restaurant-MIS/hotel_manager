@@ -44,7 +44,7 @@ class LoadingScreen extends StatelessWidget {
               body: SafeArea(
                 child: Center(
                   child: LoadingAnimationWidget.threeArchedCircle(
-                    color: Colors.white,
+                    color: Colors.blue,
                     size: 50.0,
                   ),
                 ),

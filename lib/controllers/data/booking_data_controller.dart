@@ -1,40 +1,47 @@
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/controllers/network/booking_data_network_controller.dart';
+import 'package:hotel_manager_app/constants/booking_status_constants.dart';
+import 'package:hotel_manager_app/controllers/network/booking_network_controller.dart';
 import 'package:hotel_manager_app/models/booking.dart';
 
 class BookingDataController extends GetxController {
   static BookingDataController instance = Get.find();
 
-  BookingDataNetworkController _bdnc = BookingDataNetworkController.instance;
+  BookingNetworkController _bdnc = BookingNetworkController.instance;
 
   Map<String, List<Booking>> _bookingDataMap = {};
 
   Map<String, List<Booking>> get bookingDataMap => _bookingDataMap;
 
   @override
-  void onInit() {
-    // TODO: implement onInit
+  void onInit() async{
     super.onInit();
     print('dataController to be initialized');
-    _initController();
+    await _initController();
   }
 
-  void _initController() {
-    _bdnc.bookingMap.entries.forEach((entry) {
-      String bookingStatus = entry.key;
-      List bookingList = entry.value;
+  Future<void> _initController() async{
+    await _getAllBookings();
+  }
 
-      _bookingDataMap[bookingStatus] = bookingList.map<Booking>((booking) {
-        Booking _booking;
-        try {
-          print(booking);
-          _booking = Booking.fromMap(booking);
-        } catch (e) {
-          print(e);
-          rethrow;
-        }
-        return _booking;
-      }).toList();
+
+  Future<void> _getAllBookings() async{
+    List<Booking> bookingList =[];
+    List<Map<String, dynamic>> bookingMapList = await _bdnc.getBookingList();
+    List<Map<String, dynamic>> reservationMapList = await _bdnc.getReservationList();
+
+    bookingMapList.forEach((Map<String,dynamic> bookingMap){
+      bookingList.add(Booking.fromMap(bookingMap));
+    });
+    reservationMapList.forEach((Map<String,dynamic> bookingMap){
+      bookingList.add(Booking.fromMap(bookingMap));
+    });
+    print('no of all bookings ${bookingList.length}');
+
+    kBookingStatusList.forEach((status) => _bookingDataMap[status] = []);
+    bookingList.forEach((booking){
+      if(_bookingDataMap.containsKey(booking.bookingStatus)){
+        _bookingDataMap[booking.bookingStatus]!.add(booking);
+      }
     });
   }
   void addBooking({required Booking booking}){
@@ -71,7 +78,7 @@ class BookingDataController extends GetxController {
 
 // import 'package:get/get.dart';
 // import 'package:hotel_manager_app/constants/booking_constants.dart';
-// import 'package:hotel_manager_app/controllers/network/booking_data_network_controller.dart';
+// import 'package:hotel_manager_app/controllers/network/booking_network_controller.dart';
 // import 'package:hotel_manager_app/models/booking.dart';
 //
 // class BookingDataController extends GetxController {

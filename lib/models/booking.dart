@@ -29,20 +29,24 @@ class Booking {
       required this.roomList});
 
   factory Booking.fromMap(Map<String, dynamic> map) {
+    DateTime checkInDay = DateTime.parse(map['checkinDate']);
+    DateTime checkOutDay = DateTime.parse(map['checkoutDate']);
+    int noOfDays = checkOutDay.difference(checkInDay).inDays;
+
     return Booking(
-        customerName: map['customerName'],
-        phoneNumber: map['phoneNumber'],
-        nicNumber: map['nicNumber'],
-        email: map['email'],
-        bookingId: map['bookingId'],
-        bookingStatus: map['bookingStatus'],
-        roomType: map['roomType'],
-        noOfRooms: map['noOfRooms'],
-        noOfDays: map['noOfDays'],
-        arrivalDate: map['arrivalDate'],
-        departureDate: map['departureDate'],
-        totalAmount: map['totalAmount'],
-        roomList: map['roomList']);
+        customerName: map['customer']['name'],
+        phoneNumber: map['customer']['phone'],
+        nicNumber: map['customer']['nic'],
+        email: map['customer']['email'],
+        bookingId: map['bookingID'] ??map['reservationID'],
+        bookingStatus: map['status'] ,
+        roomType: map['roomTypeName'],
+        noOfRooms: map['roomQuantity'],
+        noOfDays: noOfDays,
+        arrivalDate: DateTime.parse(map['checkinDate']),
+        departureDate: DateTime.parse(map['checkoutDate']),
+        totalAmount: map['totalPrice'],
+        roomList: map['roomList'] ?? ['100','101']);
   }
 
   Map<String, dynamic> toMap() {

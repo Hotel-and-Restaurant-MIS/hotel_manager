@@ -12,7 +12,8 @@ class CreateBookingStateController extends GetxController {
   CreateBookingDataController _cbdc = CreateBookingDataController.instance;
 
   final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-]+$");
-  final RegExp _phoneRegExp = RegExp(r"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
+  final RegExp _phoneRegExp =
+      RegExp(r"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
   final RegExp _emailRegExp = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
   final RegExp _nicRegExp = RegExp(r"^\d{9}[Vv]|\d{12}$");
   final RegExp _noOfRoomsRegExp = RegExp(r"^[1-9]\d*$");
@@ -22,10 +23,12 @@ class CreateBookingStateController extends GetxController {
   String? _phoneNumber;
   String? _nic;
   String? _roomType;
-  String? _noOfRooms;
+  int? _noOfRooms;
   RxList<DateTime> _days = [DateTime(2024, 3, 27), DateTime(2024, 3, 30)].obs;
-  RxList _availableRooms = [].obs;
+  RxList? _availableRooms = [].obs;
+  RxDouble _totalPrice = 0.0.obs;
 
+  double? get totalPrice => _totalPrice.value;
   String? get name => _name;
 
   String? get email => _email;
@@ -36,19 +39,24 @@ class CreateBookingStateController extends GetxController {
 
   String? get roomType => _roomType;
 
-  String? get noOfRooms => _noOfRooms;
+  int? get noOfRooms => _noOfRooms;
 
   List<DateTime>? get days => _days.value;
 
-  List get availableRooms => _availableRooms.value;
+  List get availableRooms => _availableRooms?.value ?? [];
 
-  void setAvailableRooms(RxList value) {
-    _availableRooms = value;
+  void setTotalPrice(double value) {
+    _totalPrice.value = value;
+  }
+
+  void setAvailableRoomList(List<String> value) {
+    _availableRooms?.value = value;
   }
 
   void setNoOfRooms(String value) {
-    _noOfRooms = value;
+    _noOfRooms = int.parse(value);
     getRoomList();
+    calculateTotalPrice();
     update();
   }
 
@@ -70,6 +78,7 @@ class CreateBookingStateController extends GetxController {
 
   void setRoomType(String value) {
     _roomType = value;
+    calculateTotalPrice();
     getRoomList();
     update();
   }
@@ -84,16 +93,40 @@ class CreateBookingStateController extends GetxController {
     update();
   }
 
-  void getRoomList() {
-    // if (_noOfRooms != null &&
-    //     _noOfRooms!.isNotEmpty &&
-    //     _roomType != null &&
-    //     _roomType!.isNotEmpty &&
-    //     _days.isNotEmpty) {
-    print('conditions are true');
-    _cbdc.getRoomList(roomType: roomType, days: days);
+  calculateTotalPrice() async {
+    if (_noOfRooms != null &&
+        _noOfRooms != 0 &&
+        _roomType != null &&
+        _roomType!.isNotEmpty) {
+      if (roomType == 'Single Room') {
+        _totalPrice.value = (_noOfRooms! * _cbdc.singleRoomPrice);
+        print('total: $_totalPrice');
+      } else if (roomType == 'Double Room') {
+        _totalPrice.value = (_noOfRooms! * _cbdc.doubleRoomPrice);
+      } else if (roomType == 'Twin Room') {
+        _totalPrice.value = (_noOfRooms! * _cbdc.twinRoomPrice);
+      }
+    }
+  }
 
-    //}
+  void getRoomList() async {
+    if (_noOfRooms != null &&
+        _noOfRooms != 0 &&
+        _roomType != null &&
+        _roomType!.isNotEmpty &&
+        _days.isNotEmpty) {
+      print('conditions are true for create booking');
+
+      List<String> currentRoomList = await _cbdc.getAvailableDateRoomList(
+          roomType: _roomType!, dateList: _days, noOfRooms: _noOfRooms!);
+
+      setAvailableRoomList(currentRoomList);
+    }
+  }
+
+  void setAvailableRoomToNull() {
+    _availableRooms = null;
+    _cbdc.setAvailableRoomToNull();
   }
 
   FormValidResponse validationForm() {
@@ -135,8 +168,8 @@ class CreateBookingStateController extends GetxController {
         'message': 'NIC is not valid!',
       },
       {
-        'condition':_noOfRooms == null,
-        'message':'No of rooms cannot be empty!'
+        'condition': _noOfRooms == null,
+        'message': 'No of rooms cannot be empty!'
       }
     ];
     for (final rule in validationRules) {

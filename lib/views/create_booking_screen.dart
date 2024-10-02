@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
+import 'package:hotel_manager_app/constants/booking_constants.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/create_booking_state_controller.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
@@ -14,7 +15,6 @@ class CreateBookingScreen extends StatelessWidget {
   CreateBookingStateController _cbsc = CreateBookingStateController.instance;
   RoomGridBuilder _rgb = RoomGridBuilder.instance;
 
-  List<String> roomTypeList = ['Deluxe', 'Suite', 'Presidential suite'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +74,6 @@ class CreateBookingScreen extends StatelessWidget {
                       right: 15.0, top: 15.0, bottom: 15.0),
                   child: Container(
                     width: double.infinity,
-                    // decoration: BoxDecoration(color: Colors.orange),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -176,7 +175,7 @@ class CreateBookingScreen extends StatelessWidget {
                         hintText: '- Select -',
                         width: 150.0,
                         menuHeight: 150.0,
-                        dropdownMenuEntries: roomTypeList
+                        dropdownMenuEntries: kRoomTypeList
                             .map<DropdownMenuEntry<String>>((String value) {
                           return DropdownMenuEntry<String>(
                               value: value, label: value);
@@ -205,9 +204,7 @@ class CreateBookingScreen extends StatelessWidget {
                         height: 100.0,
                         width: double.infinity,
                         // decoration: BoxDecoration(color: Colors.),
-                        child: Obx(
-                          () => _rgb.buildGridByRoomId(),
-                        ),
+                        child:_rgb.buildGridByRoomId(),
                       ),
                     ),
                     SizedBox(
@@ -224,9 +221,11 @@ class CreateBookingScreen extends StatelessWidget {
                         'Total',
                         style: TextConstants.kMainTextStyle(fontSize: 23.0),
                       ),
-                      Text(
-                        'Rs. 78500.00',
-                        style: TextConstants.kSubTextStyle(fontSize: 23.0),
+                      Obx(
+                            ()=> Text(
+                          '${_cbsc.totalPrice}',
+                          style: TextConstants.kSubTextStyle(fontSize: 23.0),
+                        ),
                       ),
                     ],
                   ),

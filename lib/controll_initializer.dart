@@ -31,7 +31,7 @@ class ControllerInitializer {
       Get.put(LoginDataController());
       Get.put(LoginStateController());
       Get.put(CreateBookingNetworkController());
-      Get.put(CreateBookingDataController());
+      await Get.putAsync(() => CreateBookingDataController.create());
       Get.put(AvailableRoomsNetworkController());
       Get.put(AvailableRoomsDataController());
       Get.put(AvailableRoomStateController());
@@ -40,12 +40,13 @@ class ControllerInitializer {
       await Get.putAsync(() => EmployeeDataController.create());
       //await Get.putAsync(() => BookingNetworkController.create());
       Get.put(BookingNetworkController());
+      Get.put(BookingDataController());
       Get.put(BookingDetailStateController());
       Get.put(CompletedRoomGridBuilder());
       Get.put(RoomGridBuilder());
       Get.put(EmployeeListBuilder());
       Get.put(AddEmpStateController());
-      Get.put(BookingDataController());
+
       Get.put(BookingListBuilder());
       Get.put(CreateBookingStateController());
 

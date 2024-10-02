@@ -6,6 +6,8 @@ class AvailableRoomStateController extends GetxController {
 
   AvailableRoomsDataController _ardc = AvailableRoomsDataController.instance;
 
+  RxBool isLoading = false.obs;
+
   RxList<DateTime> _days = [DateTime(2024, 3, 27), DateTime(2024, 3, 30)].obs;
 
   List<DateTime>? get days => _days.value;
@@ -18,6 +20,8 @@ class AvailableRoomStateController extends GetxController {
 
   //get the available room count for all room types
   Future<void> getAllAvailableRooms({required List<DateTime> dateList}) async {
+    isLoading.value = true;
    await _ardc.getAvailableRoomCount(dateList: dateList);
+    isLoading.value = false;
   }
 }

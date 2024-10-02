@@ -36,7 +36,7 @@ class Employee {
       phone_no: map['phoneNumber'].toString() ?? '',
       nic: map['nic'].toString() ?? '',
       id: map['employeeId'].toString() ?? '',
-      role: map['employeeRole']?? '',
+      role: map['role'],
     );
   }
 }

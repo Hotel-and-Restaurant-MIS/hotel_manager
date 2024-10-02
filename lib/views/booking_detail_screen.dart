@@ -13,7 +13,7 @@ class BookingDetailScreen extends StatelessWidget {
   Booking booking;
   bool isCompleted;
 
-  BookingDetailStateController _cbsc = BookingDetailStateController.instance;
+  BookingDetailStateController _bdsc = BookingDetailStateController.instance;
 
   CompletedRoomGridBuilder _rgb = CompletedRoomGridBuilder.instance;
 
@@ -24,7 +24,7 @@ class BookingDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Booking Details',
+          (isCompleted)?'Booking Details':'Reservation Details',
           style: TextConstants.kMainTextStyle(
               fontSize: 28.0, fontWeight: FontWeight.w700),
         ),
@@ -66,8 +66,8 @@ class BookingDetailScreen extends StatelessWidget {
                               ),
                               Obx(
                                 () => GestureDetector(
-                                    onTap: _cbsc.changeVisibility,
-                                    child: (_cbsc.isVisible)
+                                    onTap: _bdsc.changeVisibility,
+                                    child: (_bdsc.isVisible)
                                         ? Transform.rotate(
                                             angle:
                                                 3.14, // 180 degrees in radians
@@ -96,7 +96,7 @@ class BookingDetailScreen extends StatelessWidget {
                           ),
                           Obx(
                             () => Visibility(
-                              visible: _cbsc.isVisible,
+                              visible: _bdsc.isVisible,
                               child: Column(
                                 children: <Widget>[
                                   CustomerDetailTile(
@@ -200,7 +200,7 @@ class BookingDetailScreen extends StatelessWidget {
                 //     : Container(),
                 if (!isCompleted)
                   FutureBuilder<bool>(
-                    future: _cbsc.checkAvailability(
+                    future: _bdsc.checkAvailability(
                       noOfRooms: booking.noOfRooms,
                       arrivalDate: booking.arrivalDate,
                       departureDAte: booking.departureDate,
@@ -268,7 +268,7 @@ class BookingDetailScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 80.0,
                             child:
-                                _rgb.buildGridByRoomId(_cbsc.availableRoomList),
+                                _rgb.buildGridByRoomId(_bdsc.availableRoomList),
                           ),
 
                           // Null check already done

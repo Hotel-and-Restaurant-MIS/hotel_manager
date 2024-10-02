@@ -17,7 +17,7 @@ class  AvailableRoomsNetworkController extends GetxController{
       List<Map<String, dynamic>> currentRoomCountList = [];
 
       Uri url = Uri.parse(
-          '${NetworkConstants.baseUrl}/reservations/booking/roomType/available?from=${DateFormat('yyyy-MM-dd').format(dateList[0])}&to=${DateFormat('yyyy-MM-dd').format(dateList[1])}');
+          '${NetworkConstants.baseUrl}/bookings/totalAvailableRoomCount?from=${DateFormat('yyyy-MM-dd').format(dateList[0])}&to=${DateFormat('yyyy-MM-dd').format(dateList[1])}');
       var response = await http.get(url);
 
       if (response.statusCode == 200) {

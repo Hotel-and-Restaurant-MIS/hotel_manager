@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hotel_manager_app/constants/network_constants.dart';
 import 'package:hotel_manager_app/exception/list_pass_exception.dart';
 import 'package:hotel_manager_app/exception/network_exception.dart';
-import 'package:hotel_manager_app/models/booking.dart';
 import 'package:http/http.dart' as http;
 
 class BookingNetworkController extends GetxController {
@@ -33,7 +32,6 @@ class BookingNetworkController extends GetxController {
         reservationList = jsonResponse
             .map((reservation) => reservation as Map<String, dynamic>)
             .toList();
-        //reservationList = decodedList.cast<Map<String, dynamic>>();
         print('###length of reservationList:${reservationList.length}');
         return reservationList;
       } catch (e) {
@@ -51,7 +49,7 @@ class BookingNetworkController extends GetxController {
   Future<List<Map<String, dynamic>>> getBookingList() async {
     List<Map<String, dynamic>> bookingList = [];
 
-    Uri url = Uri.parse('${NetworkConstants.baseUrl}/reservations/booking/all');
+    Uri url = Uri.parse('${NetworkConstants.baseUrl}/bookings/all');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -77,47 +75,3 @@ class BookingNetworkController extends GetxController {
   //   Uri url = Uri.parse('${NetworkConstants.baseUrl}/');
   // }
 }
-
-//below can get dummy booking data
-//
-// import 'package:get/get.dart';
-// import 'package:hotel_manager_app/components/booking_status.dart';
-// import '../../constants/booking_constants.dart';
-//
-// class BookingNetworkController extends GetxController {
-//   static BookingNetworkController instance = Get.find();
-//
-//   Map<String, dynamic> _bookingMap = {};
-//   Map<String, dynamic> get bookingMap => _bookingMap;
-//
-//   BookingNetworkController._();
-//
-//   static Future<BookingNetworkController> create() async {
-//     BookingNetworkController controller = BookingNetworkController._();
-//     await controller._initController();
-//
-//     return controller;
-//   }
-//
-//   Future<void> _initController() async {
-//     await Future.delayed(
-//       Duration(
-//         milliseconds: 500,
-//       ),
-//     ); //simulate network delay
-//
-   // kBookingStatusList.forEach((status) => _bookingMap[status] = []);
-//     kBookingList.forEach((booking) {
-//       List currentList = _bookingMap[booking.bookingStatus];
-//       currentList.add(booking.toMap());
-//       _bookingMap[booking.bookingStatus] = currentList;
-//     });
-//   }
-// }
-//
-//
-//
-//
-//
-//
-//

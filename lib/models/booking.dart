@@ -33,6 +33,7 @@ class Booking {
     DateTime checkOutDay = DateTime.parse(map['checkoutDate']);
     int noOfDays = checkOutDay.difference(checkInDay).inDays;
 
+
     return Booking(
         customerName: map['customer']['name'],
         phoneNumber: map['customer']['phone'],
@@ -46,7 +47,7 @@ class Booking {
         arrivalDate: DateTime.parse(map['checkinDate']),
         departureDate: DateTime.parse(map['checkoutDate']),
         totalAmount: map['totalPrice'],
-        roomList: map['roomList'] ?? ['100','101']);
+        roomList: List<String>.from(map['reservedRoomsNumbers']??[]));
   }
 
   Map<String, dynamic> toMap() {

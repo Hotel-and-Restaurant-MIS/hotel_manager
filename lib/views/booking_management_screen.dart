@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/constants/booking_status_constants.dart';
+import 'package:hotel_manager_app/constants/booking_constants.dart';
 import 'package:hotel_manager_app/controllers/views/booking_management_screen/booking_list_builder.dart';
+import 'package:hotel_manager_app/controllers/views/create_booking_screen/create_booking_state_controller.dart';
+import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_grid_builder.dart';
 import 'package:hotel_manager_app/views/available_room_screen.dart';
 import 'package:hotel_manager_app/views/create_booking_screen.dart';
 
 class BookingManagementScreen extends StatelessWidget {
-  const BookingManagementScreen({super.key});
+  CreateBookingStateController _cbsc = CreateBookingStateController.instance;
+  RoomGridBuilder _rgb = RoomGridBuilder.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,8 @@ class BookingManagementScreen extends StatelessWidget {
                   color: Colors.blue,
                 ),
                 onPressed: () {
+                  _cbsc.setAvailableRoomToNull();
+                  _rgb.buildGridByRoomId();
                   Get.to(() => CreateBookingScreen());
                 },
               ),

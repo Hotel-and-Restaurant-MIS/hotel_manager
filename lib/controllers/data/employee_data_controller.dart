@@ -8,6 +8,8 @@ class EmployeeDataController extends GetxController {
   final EmployeeDataNetworkController _ednc =
       EmployeeDataNetworkController.instance;
 
+
+
   List<Employee> _employeeList = [];
 
   List<Employee> get employeeList => _employeeList;
@@ -41,9 +43,11 @@ class EmployeeDataController extends GetxController {
   }
 
   Future<void> addEmployee({required Employee employee}) async {
+
     Map<String, dynamic> newEmployeeMap =
         await _ednc.addEmploy(employee: employee);
 
     _employeeList.add(Employee.fromMap(newEmployeeMap));
+
   }
 }

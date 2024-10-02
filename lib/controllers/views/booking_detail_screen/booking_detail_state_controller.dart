@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/controllers/data/create_booking_data_controller.dart';
+import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
 
 class BookingDetailStateController extends GetxController{
   static BookingDetailStateController instance = Get.find();
 
-  CreateBookingDataController _cbdc = CreateBookingDataController.instance;
-
+  BookingDataController _bdc = BookingDataController.instance;
   RxBool _isVisible = false.obs;
 
   bool get isVisible => _isVisible.value;
@@ -41,7 +40,7 @@ class BookingDetailStateController extends GetxController{
     List<DateTime> dateList=[];
     dateList.add(arrivalDate);
     dateList.add(departureDAte);
-    List<String> roomList= await _cbdc.getAvailableDateRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
+    List<String> roomList= await _bdc.getAvailableDateRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
     setAvailableRoomList(roomList);
     if(roomList.isEmpty){
       setIsAvailable(false);

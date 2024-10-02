@@ -8,7 +8,7 @@ class AddEmpStateController extends GetxController {
   static AddEmpStateController instance = Get.find();
 
   EmployeeDataController _edc = EmployeeDataController.instance;
-
+  RxBool isEmployeeAdded = false.obs;
   final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-]+$");
   final RegExp _phoneRegExp =
       RegExp(r"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
@@ -56,6 +56,7 @@ class AddEmpStateController extends GetxController {
     _role = role;
     update();
   }
+
   int setRoleId() {
     if (_role == Role.Restaurant_Manager.name) {
       _roleId = 1;
@@ -74,15 +75,26 @@ class AddEmpStateController extends GetxController {
   }
 
   Future<void> addEmployee() async {
+    isEmployeeAdded.value = true;
     await _edc.addEmployee(
       employee: Employee(
-        name: _name!,
-        email: _email!,
-        nic: _nic!,
-        phone_no: _phone_number!,
-        roleId:1
-      ),
+          name: _name!,
+          email: _email!,
+          nic: _nic!,
+          phone_no: _phone_number!,
+          roleId: 1),
     );
+    isEmployeeAdded.value = false;
+    resetData();
+  }
+
+  void resetData() {
+    _roleId = null;
+    _role = null;
+    _nic = null;
+    _phone_number = null;
+    _name = null;
+    _email = null;
   }
 
   FormValidResponse validationForm() {

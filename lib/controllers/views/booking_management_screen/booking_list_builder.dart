@@ -17,7 +17,7 @@ class BookingListBuilder extends GetxController {
     } else {
       _bdc.bookingDataMap[status]!.forEach((booking) {
         children.add(BookingTile(
-          bookingId: booking.bookingId,
+          bookingId: booking.bookingId!,
           nic: booking.nicNumber,
           arrivalDate: booking.arrivalDate,
           onTap: () {

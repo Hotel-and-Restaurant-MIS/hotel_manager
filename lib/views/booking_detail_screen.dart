@@ -122,7 +122,7 @@ class BookingDetailScreen extends StatelessWidget {
                 ),
                 ViewBookingItemTile(
                     tileName: 'Booking Status',
-                    tileValue: booking.bookingStatus),
+                    tileValue: booking.bookingStatus!),
                 ViewBookingItemTile(
                     tileName: 'Room Type', tileValue: booking.roomType),
                 ViewBookingItemTile(

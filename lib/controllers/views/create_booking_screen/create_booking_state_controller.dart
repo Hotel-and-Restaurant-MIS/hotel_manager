@@ -129,6 +129,23 @@ class CreateBookingStateController extends GetxController {
     _cbdc.setAvailableRoomToNull();
   }
 
+  Future<void> addBooking() async {
+    await _cbdc.addBooking(
+      Booking(
+        customerName: _name!,
+        phoneNumber: _phoneNumber!,
+        nicNumber: _nic!,
+        email: _email!,
+        roomType: _roomType!,
+        noOfRooms: _noOfRooms!,
+        arrivalDate: _days[0],
+        departureDate: _days[1],
+        totalAmount: _totalPrice.value,
+        roomList: _cbdc.availableRoomList,
+      ),
+    );
+  }
+
   FormValidResponse validationForm() {
     final validationRules = [
       {

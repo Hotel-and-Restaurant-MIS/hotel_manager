@@ -69,9 +69,4 @@ class BookingNetworkController extends GetxController {
       throw NetworkException();
     }
   }
-
-  // Future<Map<String, dynamic>> addBooking({required Booking booking}) async {
-  //   Map<String, dynamic> bookingMap = {};
-  //   Uri url = Uri.parse('${NetworkConstants.baseUrl}/');
-  // }
 }

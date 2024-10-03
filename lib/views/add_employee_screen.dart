@@ -53,7 +53,6 @@ class AddEmployeeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                //TODO: add image get method for the employee
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: Column(

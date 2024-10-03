@@ -18,13 +18,28 @@ class CreateBookingStateController extends GetxController {
   final RegExp _nicRegExp = RegExp(r"^\d{9}[Vv]|\d{12}$");
   final RegExp _noOfRoomsRegExp = RegExp(r"^[1-9]\d*$");
 
+  RxBool _isAddingBooking = false.obs;
+  bool get isAddingBooking => _isAddingBooking.value;
+
+  void setIsAddingBooking(bool value) {
+    _isAddingBooking.value = value;
+  }
+
+  RxBool _isGettingRoomList = false.obs;
+
+  bool get isGettingRoomList => _isGettingRoomList.value;
+
+  void setIsGettingRoomList(bool value) {
+    _isGettingRoomList.value = value;
+  }
+
   String? _name;
   String? _email;
   String? _phoneNumber;
   String? _nic;
   String? _roomType;
   int? _noOfRooms;
-  RxList<DateTime> _days = [DateTime(2024, 3, 27), DateTime(2024, 3, 30)].obs;
+  RxList<DateTime> _days = <DateTime>[].obs;
   RxList? _availableRooms = [].obs;
   RxDouble _totalPrice = 0.0.obs;
 
@@ -109,7 +124,20 @@ class CreateBookingStateController extends GetxController {
     }
   }
 
+  void resetData() {
+    _totalPrice.value = 0.0;
+    _days = <DateTime>[].obs;
+    _roomType = null;
+    _nic = null;
+    _noOfRooms = null;
+    _phoneNumber = null;
+    _name = null;
+    _availableRooms = [].obs;
+    _email = null;
+  }
+
   void getRoomList() async {
+    setIsGettingRoomList(true);
     if (_noOfRooms != null &&
         _noOfRooms != 0 &&
         _roomType != null &&
@@ -122,6 +150,7 @@ class CreateBookingStateController extends GetxController {
 
       setAvailableRoomList(currentRoomList);
     }
+    setIsGettingRoomList(false);
   }
 
   void setAvailableRoomToNull() {
@@ -130,6 +159,7 @@ class CreateBookingStateController extends GetxController {
   }
 
   Future<void> addBooking() async {
+    setIsAddingBooking(true);
     await _cbdc.addBooking(
       Booking(
         customerName: _name!,
@@ -144,6 +174,8 @@ class CreateBookingStateController extends GetxController {
         roomList: _cbdc.availableRoomList,
       ),
     );
+    setIsAddingBooking(false);
+    resetData();
   }
 
   FormValidResponse validationForm() {

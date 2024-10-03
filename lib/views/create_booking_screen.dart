@@ -236,12 +236,12 @@ class CreateBookingScreen extends StatelessWidget {
                 Center(
                   child: ButtonBlue(
                     buttonText: 'Done',
-                    ontap: () {
+                    ontap: () async{
                       FormValidResponse formValidResponse =
                           _cbsc.validationForm();
                       if (formValidResponse.formValid) {
                         Get.to(() => BookingManagementScreen());
-                        //TODO: pass the booking to the backend.
+                        await _cbsc.addBooking();
                       } else {
                         Get.dialog(
                           Dialog(

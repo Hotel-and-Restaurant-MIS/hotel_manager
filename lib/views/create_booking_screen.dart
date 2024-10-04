@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
+import 'package:hotel_manager_app/components/loading_dialog.dart';
 import 'package:hotel_manager_app/constants/booking_constants.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:hotel_manager_app/controllers/views/create_booking_screen/create_booking_state_controller.dart';
@@ -10,14 +11,15 @@ import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_g
 import 'package:hotel_manager_app/models/form_valid_response.dart';
 import 'package:hotel_manager_app/views/booking_management_screen.dart';
 import 'package:intl/intl.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CreateBookingScreen extends StatelessWidget {
   CreateBookingStateController _cbsc = CreateBookingStateController.instance;
   RoomGridBuilder _rgb = RoomGridBuilder.instance;
 
+
   @override
   Widget build(BuildContext context) {
+    _cbsc.resetData();
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -68,13 +70,26 @@ class CreateBookingScreen extends StatelessWidget {
                         place_holder: 'Enter NIC number',
                         submit_controller: _cbsc.setNIC),
                     InputTextField(
-                        keyBoardType: TextInputType.number,
-                        title: 'No of rooms',
-                        place_holder: 'Enter count',
-                        submit_controller: _cbsc.setNoOfRooms),
+                      keyBoardType: TextInputType.number,
+                      title: 'No of rooms',
+                      place_holder: 'Enter count',
+                      submit_controller: (String value) async {
+                        LoadingDialog(
+                          callerFunction: () async {
+                            await _cbsc.setNoOfRooms(value);
+                          },
+                          onErrorCallBack: (e) {
+                            print(e.toString());
+                          },
+                        );
+                      },
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          right: 15.0, top: 15.0, bottom: 15.0),
+                        right: 15.0,
+                        top: 15.0,
+                        bottom: 15.0,
+                      ),
                       child: Container(
                         width: double.infinity,
                         child: Column(
@@ -185,9 +200,16 @@ class CreateBookingScreen extends StatelessWidget {
                                     );
 
                                     if (results != null && results.isNotEmpty) {
-                                      _cbsc.setDays(results
-                                          .whereType<DateTime>()
-                                          .toList());
+                                      LoadingDialog(
+                                        callerFunction: () async {
+                                          await _cbsc.setDays(results
+                                              .whereType<DateTime>()
+                                              .toList());
+                                        },
+                                        onErrorCallBack: (e) {
+                                          print(e.toString());
+                                        },
+                                      );
                                     }
                                   },
                                   child: Padding(
@@ -227,8 +249,15 @@ class CreateBookingScreen extends StatelessWidget {
                                 return DropdownMenuEntry<String>(
                                     value: value, label: value);
                               }).toList(),
-                              onSelected: (String? value) {
-                                _cbsc.setRoomType(value!);
+                              onSelected: (String? value) async {
+                                LoadingDialog(
+                                  callerFunction: () async {
+                                    await _cbsc.setRoomType(value!);
+                                  },
+                                  onErrorCallBack: (e) {
+                                    print(e.toString());
+                                  },
+                                );
                               }),
                         ],
                       ),
@@ -253,22 +282,7 @@ class CreateBookingScreen extends StatelessWidget {
                                 child: _rgb.buildGridByRoomId(),
                               ),
                             ),
-                            Obx(
-                              () => _cbsc.isGettingRoomList
-                                  ? Positioned.fill(
-                                      child: Container(
-                                        color: Colors.white.withOpacity(0.5),
-                                        child: Center(
-                                          child: LoadingAnimationWidget
-                                              .threeArchedCircle(
-                                            color: Colors.blue,
-                                            size: 50.0,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : SizedBox.shrink(),
-                            ),
+                            // LoadingAnimation(widgetControllerValue: _cbsc.isGettingRoomList),
                           ],
                         ),
                         SizedBox(
@@ -365,16 +379,15 @@ class CreateBookingScreen extends StatelessWidget {
               ),
             ),
           ),
+          // LoadingAnimation(widgetControllerValue: _cbsc.isAddingBooking,),
           Obx(
             () => _cbsc.isAddingBooking
                 ? Positioned.fill(
                     child: Container(
                       color: Colors.black.withOpacity(0.5),
                       child: Center(
-                        // child: CircularProgressIndicator(color: Colors.blue,),
-                        child: LoadingAnimationWidget.threeArchedCircle(
+                        child: CircularProgressIndicator(
                           color: Colors.blue,
-                          size: 50.0,
                         ),
                       ),
                     ),

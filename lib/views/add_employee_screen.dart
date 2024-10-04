@@ -4,11 +4,8 @@ import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/input_text_field.dart';
 import 'package:hotel_manager_app/constants/employee_roles.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
-import 'package:hotel_manager_app/controllers/data/employee_data_controller.dart';
 import 'package:hotel_manager_app/models/form_valid_response.dart';
 import 'package:hotel_manager_app/views/employee_screen.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-
 import '../controllers/views/add_employee_screen/add_emp_state_controller.dart';
 
 class AddEmployeeScreen extends StatelessWidget {
@@ -16,6 +13,7 @@ class AddEmployeeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _addEmpStateController.resetData();
     return Scaffold(
         body: Stack(
       children: <Widget>[
@@ -181,9 +179,8 @@ class AddEmployeeScreen extends StatelessWidget {
                     color: Colors.black.withOpacity(0.5),
                     child: Center(
                       // child: CircularProgressIndicator(color: Colors.blue,),
-                      child: LoadingAnimationWidget.threeArchedCircle(
+                      child: CircularProgressIndicator(
                         color: Colors.blue,
-                        size: 50.0,
                       ),
                     ),
                   ),

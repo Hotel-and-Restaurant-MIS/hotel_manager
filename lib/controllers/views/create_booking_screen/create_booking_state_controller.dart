@@ -68,17 +68,17 @@ class CreateBookingStateController extends GetxController {
     _availableRooms?.value = value;
   }
 
-  void setNoOfRooms(String value) {
+  Future<void> setNoOfRooms(String value) async {
     _noOfRooms = int.parse(value);
-    getRoomList();
+    await getRoomList();
     calculateTotalPrice();
     update();
   }
 
-  void setDays(List<DateTime> updatedValue) {
+  Future<void> setDays(List<DateTime> updatedValue) async {
     _days.value = updatedValue;
+    await getRoomList();
     update();
-    getRoomList();
   }
 
   void setName(String value) {
@@ -91,10 +91,10 @@ class CreateBookingStateController extends GetxController {
     update();
   }
 
-  void setRoomType(String value) {
+  Future<void> setRoomType(String value) async {
     _roomType = value;
     calculateTotalPrice();
-    getRoomList();
+    await getRoomList();
     update();
   }
 
@@ -134,9 +134,11 @@ class CreateBookingStateController extends GetxController {
     _name = null;
     _availableRooms = [].obs;
     _email = null;
+    _cbdc.setAvailableRoomToNull();
+
   }
 
-  void getRoomList() async {
+  Future<void> getRoomList() async {
     setIsGettingRoomList(true);
     if (_noOfRooms != null &&
         _noOfRooms != 0 &&

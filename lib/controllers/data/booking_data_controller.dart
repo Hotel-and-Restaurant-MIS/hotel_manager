@@ -9,9 +9,10 @@ class BookingDataController extends GetxController {
 
   BookingNetworkController _bdnc = BookingNetworkController.instance;
   CreateBookingNetworkController _cbnc = CreateBookingNetworkController.instance;
-  Map<String, List<Booking>> _bookingDataMap = {};
+  RxMap<String, List<Booking>> _bookingDataMap = <String, List<Booking>>{}.obs;
 
-  Map<String, List<Booking>> get bookingDataMap => _bookingDataMap;
+  Map<String, List<Booking>> get bookingDataMap => _bookingDataMap.value;
+
   RxList<String> _availableRoomList = [''].obs;
 
   List<String> get availableRoomList => _availableRoomList.value;

@@ -96,13 +96,5 @@ class CreateBookingDataController extends GetxController {
     }
   }
 
-  Future<void> addBooking(Booking booking) async {
-    try {
-      Map<String, dynamic> bookingMap = await _cbnc.addBooking(booking);
-      _bdc.bookingDataMap['Completed']?.add(Booking.fromMap(bookingMap));
-    } catch (e) {
-      print(e.toString());
-      throw NetworkException(message: 'error occurs adding new booking');
-    }
-  }
+
 }

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
+import 'package:hotel_manager_app/models/booking.dart';
 
 class BookingDetailStateController extends GetxController {
   static BookingDetailStateController instance = Get.find();
@@ -25,7 +26,7 @@ class BookingDetailStateController extends GetxController {
   }
 
   RxList<String> _availableRoomList = <String>[].obs;
-  List<String> get availableRoomList => _availableRoomList;
+  List<String> get availableRoomList => _availableRoomList.value;
 
   void setAvailableRoomList(List<String> value) {
     _availableRoomList.assignAll(value);
@@ -44,6 +45,34 @@ class BookingDetailStateController extends GetxController {
     setAvailableRoomList([]);
   }
 
+  Future<void> addBooking(Booking booking) async {
+    await _bdc.addBooking(
+      Booking(
+        customerName: booking.customerName,
+        phoneNumber: booking.phoneNumber,
+        nicNumber: booking.nicNumber,
+        email: booking.email,
+        roomType: booking.roomType,
+        noOfRooms: booking.noOfRooms,
+        arrivalDate: booking.arrivalDate,
+        departureDate: booking.departureDate,
+        totalAmount: booking.totalAmount,
+        roomList: availableRoomList,
+      ),
+    );
+    print('state added');
+  }
+
+  Future<void> removeReservation(int reservationId) async {
+    try{
+      print('state start');
+      await _bdc.removeReservation(reservationId);
+      print('satate end');
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
   Future<bool> checkAvailability(
       {required int noOfRooms,
       required DateTime arrivalDate,

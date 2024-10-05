@@ -69,4 +69,9 @@ class BookingNetworkController extends GetxController {
       throw NetworkException();
     }
   }
+
+  Future<void> removeReservation(int id)async{
+    //TODO: connect with the back end;
+    print('networkCalled');
+  }
 }

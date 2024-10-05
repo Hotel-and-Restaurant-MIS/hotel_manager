@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/components/customer_detail_tile.dart';
+import 'package:hotel_manager_app/components/loading_dialog.dart';
 import 'package:hotel_manager_app/components/view_booking_item_tile.dart';
 import 'package:hotel_manager_app/constants/sub_title_text_style.dart';
 import 'package:hotel_manager_app/controllers/views/booking_detail_screen/booking_detail_state_controller.dart';
 import 'package:hotel_manager_app/controllers/views/booking_detail_screen/completed_room_grid_builder.dart';
 import 'package:hotel_manager_app/models/booking.dart';
+import 'package:hotel_manager_app/views/booking_management_screen.dart';
 import 'package:intl/intl.dart';
 
 class BookingDetailScreen extends StatelessWidget {
@@ -258,8 +260,19 @@ class BookingDetailScreen extends StatelessWidget {
                         Center(
                           child: ButtonBlue(
                               buttonText: 'Confirm Reservation',
-                              ontap: () {
-                                //TODO: add roomList to the booking object and store database.
+                              ontap: () async {
+                                LoadingDialog(
+                                  callerFunction: () async {
+                                    await _bdsc.addBooking(booking);
+                                    await _bdsc
+                                        .removeReservation(booking.bookingId!);
+                                  },
+                                  onErrorCallBack: (e) {
+                                    print(e.toString());
+                                  },
+                                );
+                                Get.back();
+                                print('reserve button pressed');
                               },
                               width: 150.0),
                         ),
@@ -267,6 +280,9 @@ class BookingDetailScreen extends StatelessWidget {
                           height: 30.0,
                         ),
                         GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.red,

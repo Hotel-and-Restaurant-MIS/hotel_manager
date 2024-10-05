@@ -71,6 +71,7 @@ class CreateBookingNetworkController extends GetxController {
   Future<Map<String, dynamic>> addBooking(Booking booking) async {
     try {
       var body = jsonEncode(booking.toMap());
+      print(body.toString());
       Uri url = Uri.parse('${NetworkConstants.baseUrl}/bookings/add');
       var response = await http.post(
         url,

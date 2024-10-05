@@ -10,6 +10,7 @@ class CreateBookingStateController extends GetxController {
   static CreateBookingStateController instance = Get.find();
 
   CreateBookingDataController _cbdc = CreateBookingDataController.instance;
+  BookingDataController _bdc = BookingDataController.instance;
 
   final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-]+$");
   final RegExp _phoneRegExp =
@@ -162,7 +163,7 @@ class CreateBookingStateController extends GetxController {
 
   Future<void> addBooking() async {
     setIsAddingBooking(true);
-    await _cbdc.addBooking(
+    await _bdc.addBooking(
       Booking(
         customerName: _name!,
         phoneNumber: _phoneNumber!,

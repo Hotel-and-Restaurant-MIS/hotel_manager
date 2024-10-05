@@ -52,11 +52,6 @@ class Booking {
   }
 
   Map<String, dynamic> toMap() {
-    print(DateFormat('yyyy/MM/dd').format(arrivalDate));
-    print(roomList);
-    print(roomType.toUpperCase());
-    print(totalAmount.toString());
-
     return {
       'name': customerName,
       'phoneNumber': phoneNumber,

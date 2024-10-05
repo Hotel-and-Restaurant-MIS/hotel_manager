@@ -15,15 +15,8 @@ class CreateBookingNetworkController extends GetxController {
       {required String roomType,
       required List<DateTime> dateList,
       required int noOfRooms}) async {
-    String capitalizedRoomType = '';
+    String capitalizedRoomType = roomType.toUpperCase();
 
-    if (roomType == 'Single Room') {
-      capitalizedRoomType = 'SINGLE ROOM';
-    } else if (roomType == 'Double Room') {
-      capitalizedRoomType = 'DOUBLE ROOM';
-    } else if (roomType == 'Twin Room') {
-      capitalizedRoomType = 'TWIN ROOM';
-    }
     try {
       Uri url = Uri.parse(
           '${NetworkConstants.baseUrl}/rooms/available?roomType=$capitalizedRoomType&checkInDate=${DateFormat('yyyy-MM-dd').format(dateList[0])}&checkOutDate=${DateFormat('yyyy-MM-dd').format(dateList[1])}&noOfRooms=$noOfRooms');
@@ -84,7 +77,6 @@ class CreateBookingNetworkController extends GetxController {
         headers: {'content-type': 'application/json'},
         body: body,
       );
-
       if(response.statusCode ==201){
         try{
           Map<String,dynamic> bookingMap = jsonDecode(response.body) as Map<String,dynamic>;

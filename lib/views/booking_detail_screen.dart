@@ -21,10 +21,11 @@ class BookingDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _bdsc.resetData();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          (isCompleted)?'Booking Details':'Reservation Details',
+          (isCompleted) ? 'Booking Details' : 'Reservation Details',
           style: TextConstants.kMainTextStyle(
               fontSize: 28.0, fontWeight: FontWeight.w700),
         ),
@@ -66,23 +67,11 @@ class BookingDetailScreen extends StatelessWidget {
                               ),
                               Obx(
                                 () => GestureDetector(
-                                    onTap: _bdsc.changeVisibility,
-                                    child: (_bdsc.isVisible)
-                                        ? Transform.rotate(
-                                            angle:
-                                                3.14, // 180 degrees in radians
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 3.0, bottom: 3.0),
-                                              child: Icon(
-                                                Icons
-                                                    .expand_circle_down_outlined,
-                                                size: 30.0,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          )
-                                        : Padding(
+                                  onTap: _bdsc.changeVisibility,
+                                  child: (_bdsc.isVisible)
+                                      ? Transform.rotate(
+                                          angle: 3.14, // 180 degrees in radians
+                                          child: Padding(
                                             padding: const EdgeInsets.only(
                                                 top: 3.0, bottom: 3.0),
                                             child: Icon(
@@ -90,7 +79,18 @@ class BookingDetailScreen extends StatelessWidget {
                                               size: 30.0,
                                               color: Colors.black,
                                             ),
-                                          )),
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 3.0, bottom: 3.0),
+                                          child: Icon(
+                                            Icons.expand_circle_down_outlined,
+                                            size: 30.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                ),
                               )
                             ],
                           ),
@@ -162,42 +162,11 @@ class BookingDetailScreen extends StatelessWidget {
                             height: 80.0,
                             child: _rgb.buildGridByRoomId(booking.roomList),
                           ),
-
-                          // Null check already done
                         ],
                       ),
                     ),
                   ),
                 ),
-                // (!isCompleted)
-                //     ? (_cbsc.checkAvailability(
-                //             noOfRooms: booking.noOfRooms,
-                //             arrivalDate: booking.arrivalDate,
-                //             departureDAte: booking.departureDate,
-                //             roomType: booking.roomType))
-                //         ? Center(
-                //             child: Padding(
-                //               padding: const EdgeInsets.only(
-                //                   top: 10.0, bottom: 10.0),
-                //               child: Text(
-                //                 'Available !',
-                //                 style: TextStyle(
-                //                     color: Colors.green, fontSize: 28.0),
-                //               ),
-                //             ),
-                //           )
-                //         : Center(
-                //             child: Padding(
-                //               padding: const EdgeInsets.only(
-                //                   top: 10.0, bottom: 10.0),
-                //               child: Text(
-                //                 'Unavilable !',
-                //                 style: TextStyle(
-                //                     color: Colors.red, fontSize: 28.0),
-                //               ),
-                //             ),
-                //           )
-                //     : Container(),
                 if (!isCompleted)
                   FutureBuilder<bool>(
                     future: _bdsc.checkAvailability(
@@ -207,14 +176,11 @@ class BookingDetailScreen extends StatelessWidget {
                       roomType: booking.roomType,
                     ),
                     builder: (context, snapshot) {
-                      // Check if the future is still loading
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
                       }
-
-                      // If there was an error
                       if (snapshot.hasError) {
                         return Center(
                           child: Padding(
@@ -236,7 +202,11 @@ class BookingDetailScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(top: 10.0, bottom: 10.0),
                             child: Text(
-                              isAvailable ? 'Available!' : 'Unavailable!',
+                              isAvailable
+                                  ? _bdsc.isAvailable
+                                      ? 'Available!'
+                                      : '${_bdsc.isAvailableRoomCount} are available!'
+                                  : 'Unavailable!',
                               style: TextStyle(
                                 color: isAvailable ? Colors.green : Colors.red,
                                 fontSize: 28.0,
@@ -245,12 +215,9 @@ class BookingDetailScreen extends StatelessWidget {
                           ),
                         );
                       }
-
-                      // Default case (if snapshot has no data)
                       return Container();
                     },
                   ),
-
                 Visibility(
                   visible: !isCompleted,
                   child: Padding(
@@ -264,14 +231,16 @@ class BookingDetailScreen extends StatelessWidget {
                             'Room Numbers',
                             style: TextConstants.kSubTextStyle(),
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 80.0,
-                            child:
-                                _rgb.buildGridByRoomId(_bdsc.availableRoomList),
+                          Obx(
+                            () {
+                              List<String> roomList = _bdsc.availableRoomList;
+                              return Container(
+                                width: double.infinity,
+                                height: 80.0,
+                                child: _rgb.buildGridByRoomId(roomList),
+                              );
+                            },
                           ),
-
-                          // Null check already done
                         ],
                       ),
                     ),
@@ -288,7 +257,7 @@ class BookingDetailScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: ButtonBlue(
-                              buttonText: 'Conform Reservation',
+                              buttonText: 'Confirm Reservation',
                               ontap: () {
                                 //TODO: add roomList to the booking object and store database.
                               },
@@ -299,13 +268,16 @@ class BookingDetailScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           child: Container(
-                            decoration: BoxDecoration(color: Colors.red,borderRadius: BorderRadius.circular(10.0)),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10.0)),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
                                 'Cancel Reservation',
-
-                                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

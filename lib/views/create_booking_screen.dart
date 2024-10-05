@@ -379,7 +379,6 @@ class CreateBookingScreen extends StatelessWidget {
               ),
             ),
           ),
-          // LoadingAnimation(widgetControllerValue: _cbsc.isAddingBooking,),
           Obx(
             () => _cbsc.isAddingBooking
                 ? Positioned.fill(

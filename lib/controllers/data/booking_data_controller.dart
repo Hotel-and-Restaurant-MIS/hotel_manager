@@ -13,7 +13,7 @@ class BookingDataController extends GetxController {
 
   Map<String, List<Booking>> get bookingDataMap => _bookingDataMap.value;
 
-  RxList<String> _availableRoomList = [''].obs;
+  RxList<String> _availableRoomList = <String>[].obs;
 
   List<String> get availableRoomList => _availableRoomList.value;
 
@@ -24,7 +24,6 @@ class BookingDataController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    print('dataController to be initialized');
     await _initController();
   }
 
@@ -60,6 +59,7 @@ class BookingDataController extends GetxController {
       required int noOfRooms}) async {
     _availableRoomList.value = await _cbnc.getAvailableDateRoomList(
         roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
+    print('BDC room list: ${availableRoomList.length}');
     return availableRoomList;
   }
 }

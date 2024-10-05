@@ -24,4 +24,8 @@ class AvailableRoomStateController extends GetxController {
    await _ardc.getAvailableRoomCount(dateList: dateList);
     isLoading.value = false;
   }
+  void resetData(){
+    _days.value =[DateTime(2024, 10, 27), DateTime(2024, 10, 30)];
+    _ardc.resetData();
+  }
 }

@@ -12,6 +12,7 @@ class AvailableRoomScreen extends StatelessWidget {
   AvailableRoomsDataController _ardc = AvailableRoomsDataController.instance;
   @override
   Widget build(BuildContext context) {
+    _arsc.resetData();
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -56,4 +56,9 @@ class AvailableRoomsDataController extends GetxController{
       print(e.toString());
     }
   }
+  void resetData(){
+    setTwinRoomCount(0);
+    setDoubleRoomCount(0);
+    setSingleRoomCount(0);
+  }
 }

@@ -43,11 +43,14 @@ class EmployeeDataController extends GetxController {
   }
 
   Future<void> addEmployee({required Employee employee}) async {
-
-    Map<String, dynamic> newEmployeeMap =
-        await _ednc.addEmploy(employee: employee);
-
-    _employeeList.add(Employee.fromMap(newEmployeeMap));
-
+    try{
+      Map<String, dynamic> newEmployeeMap =
+          await _ednc.addEmploy(employee: employee);
+      _employeeList.add(Employee.fromMap(newEmployeeMap));
+    }
+    catch(e){
+      print('error occurs adding new employee in data controller');
+      print(e.toString());
+    }
   }
 }

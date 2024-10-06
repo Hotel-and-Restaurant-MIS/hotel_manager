@@ -47,6 +47,7 @@ class EmployeeDataNetworkController extends GetxController {
       Uri url = Uri.parse('${NetworkConstants.baseUrl}/employee/add');
 
       var body = jsonEncode(employee.toMap());
+      print(body.toString());
 
       var response = await http.post(url,
           headers: {

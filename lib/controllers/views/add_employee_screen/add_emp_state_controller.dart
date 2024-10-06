@@ -54,6 +54,7 @@ class AddEmpStateController extends GetxController {
 
   void setRole(String role) {
     _role = role;
+    setRoleId();
     update();
   }
 
@@ -82,7 +83,7 @@ class AddEmpStateController extends GetxController {
           email: _email!,
           nic: _nic!,
           phone_no: _phone_number!,
-          roleId: 1),
+          roleId: _roleId),
     );
     isEmployeeAdded.value = false;
     resetData();

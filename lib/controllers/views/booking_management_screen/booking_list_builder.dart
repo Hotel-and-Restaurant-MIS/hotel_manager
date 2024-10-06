@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hotel_manager_app/components/booking_tile.dart';
 import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
 import 'package:hotel_manager_app/views/booking_detail_screen.dart';
-import 'package:hotel_manager_app/views/ongoing_booking_screen.dart';
 
 class BookingListBuilder extends GetxController {
   static BookingListBuilder instance = Get.find();
@@ -17,11 +16,11 @@ class BookingListBuilder extends GetxController {
     } else {
       _bdc.bookingDataMap[status]!.forEach((booking) {
         children.add(BookingTile(
-          bookingId: booking.bookingId,
+          bookingId: booking.bookingId!,
           nic: booking.nicNumber,
           arrivalDate: booking.arrivalDate,
           onTap: () {
-            if (booking.bookingStatus == 'Ongoing') {
+            if (booking.bookingStatus == 'OnGoing') {
               Get.to(
                 () => BookingDetailScreen(
                   booking: booking,

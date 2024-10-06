@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel_manager_app/components/button_blue.dart';
 import 'package:hotel_manager_app/controllers/views/employee_screen/employee_list_builder.dart';
 import 'package:hotel_manager_app/views/add_employee_screen.dart';
 import 'package:hotel_manager_app/views/welcome_screen.dart';
 
 class EmployeeScreen extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +18,12 @@ class EmployeeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    child: Icon(Icons.arrow_back,size: 30.0,),
-                    onTap: (){
-                      Get.to(()=>WelcomeScreen());
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 30.0,
+                    ),
+                    onTap: () {
+                      Get.to(() => WelcomeScreen());
                     },
                   ),
                   Expanded(
@@ -37,7 +39,9 @@ class EmployeeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 50.0,),
+                  SizedBox(
+                    width: 50.0,
+                  ),
                 ],
               ),
               SizedBox(
@@ -46,43 +50,23 @@ class EmployeeScreen extends StatelessWidget {
               Expanded(
                 child: EmployeeListBuilder().buildEmployeeList(),
               ),
-              SizedBox(height: 10.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: (){
-                          Get.to(()=>AddEmployeeScreen());
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          height: 45.0,
-                          width: 150.0,
-                          child: Center(
-                            child: Text(
-                              'Add Employee',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Barlow',
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 25.0,),
-                ],
+              SizedBox(
+                height: 10.0,
+              ),
+              Center(
+                child: ButtonBlue(
+                  textSize: 20.0,
+                  buttonText: 'Add Employee',
+                  ontap: () {
+                    Get.to(
+                      () => AddEmployeeScreen(),
+                    );
+                  },
+                  width: 150.0,
+                ),
               ),
               SizedBox(
-                height: 15.0,
+                height: 50.0,
               ),
             ],
           ),

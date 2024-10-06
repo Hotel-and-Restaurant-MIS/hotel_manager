@@ -1,13 +1,15 @@
+import 'package:intl/intl.dart';
+
 class Booking {
   String customerName;
   String phoneNumber;
   String nicNumber;
   String email;
-  String bookingStatus;
-  int bookingId;
+  String? bookingStatus;
+  int? bookingId;
   String roomType;
   int noOfRooms;
-  int noOfDays;
+  int? noOfDays;
   DateTime arrivalDate;
   DateTime departureDate;
   double totalAmount;
@@ -18,48 +20,49 @@ class Booking {
       required this.phoneNumber,
       required this.nicNumber,
       required this.email,
-      required this.bookingStatus,
-      required this.bookingId,
+      this.bookingStatus,
+      this.bookingId,
       required this.roomType,
       required this.noOfRooms,
-      required this.noOfDays,
+      this.noOfDays,
       required this.arrivalDate,
       required this.departureDate,
       required this.totalAmount,
       required this.roomList});
 
   factory Booking.fromMap(Map<String, dynamic> map) {
+    DateTime checkInDay = DateTime.parse(map['checkinDate']);
+    DateTime checkOutDay = DateTime.parse(map['checkoutDate']);
+    int noOfDays = checkOutDay.difference(checkInDay).inDays;
+
     return Booking(
-        customerName: map['customerName'],
-        phoneNumber: map['phoneNumber'],
-        nicNumber: map['nicNumber'],
-        email: map['email'],
-        bookingId: map['bookingId'],
-        bookingStatus: map['bookingStatus'],
-        roomType: map['roomType'],
-        noOfRooms: map['noOfRooms'],
-        noOfDays: map['noOfDays'],
-        arrivalDate: map['arrivalDate'],
-        departureDate: map['departureDate'],
-        totalAmount: map['totalAmount'],
-        roomList: map['roomList']);
+        customerName: map['customer']['name'],
+        phoneNumber: map['customer']['phone'],
+        nicNumber: map['customer']['nic'],
+        email: map['customer']['email'],
+        bookingId: map['bookingID'] ?? map['reservationID'],
+        bookingStatus: map['status'],
+        roomType: map['roomTypeName'],
+        noOfRooms: map['roomQuantity'],
+        noOfDays: noOfDays,
+        arrivalDate: DateTime.parse(map['checkinDate']),
+        departureDate: DateTime.parse(map['checkoutDate']),
+        totalAmount: map['totalPrice'],
+        roomList: List<String>.from(map['reservedRoomsNumbers'] ?? []));
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'customerName': customerName,
+      'name': customerName,
       'phoneNumber': phoneNumber,
-      'nicNumber': nicNumber,
+      'nic': nicNumber,
       'email': email,
-      'bookingStatus': bookingStatus,
-      'bookingId': bookingId,
-      'roomType': roomType,
-      'noOfRooms': noOfRooms,
-      'noOfDays': noOfDays,
-      'arrivalDate': arrivalDate,
-      'departureDate': departureDate,
-      'totalAmount': totalAmount,
-      'roomList': roomList,
+      'roomType': roomType.toUpperCase(),
+      'noOfRooms': noOfRooms.toString(),
+      'checkInDate': DateFormat('yyyy-MM-dd').format(arrivalDate),
+      'checkOutDate': DateFormat('yyyy-MM-dd').format(departureDate),
+      'totalPrice': totalAmount.toString(),
+      'rooms': roomList,
     };
   }
 }

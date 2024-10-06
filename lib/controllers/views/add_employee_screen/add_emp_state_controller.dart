@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/controllers/data/employee_data_controller.dart';
+import 'package:hotel_manager_app/controllers/enum/role.dart';
 import 'package:hotel_manager_app/models/employee.dart';
 import 'package:hotel_manager_app/models/form_valid_response.dart';
 
@@ -7,7 +8,7 @@ class AddEmpStateController extends GetxController {
   static AddEmpStateController instance = Get.find();
 
   EmployeeDataController _edc = EmployeeDataController.instance;
-
+  RxBool isEmployeeAdded = false.obs;
   final RegExp _nameRegExp = RegExp(r"^[a-zA-Z\s'-]+$");
   final RegExp _phoneRegExp =
       RegExp(r"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
@@ -19,6 +20,7 @@ class AddEmpStateController extends GetxController {
   String? _phone_number;
   String? _nic;
   String? _role;
+  int? _roleId;
 
   String? get name => _name;
 
@@ -52,20 +54,48 @@ class AddEmpStateController extends GetxController {
 
   void setRole(String role) {
     _role = role;
+    setRoleId();
     update();
   }
 
+  int setRoleId() {
+    if (_role == Role.Restaurant_Manager.name) {
+      _roleId = 1;
+    } else if (_role == Role.Cleaner.name) {
+      _roleId = 5;
+    } else if (_role == Role.Receptionist.name) {
+      _roleId = 2;
+    } else if (_role == Role.Waiter.name) {
+      _roleId = 3;
+    } else if (_role == Role.Chef.name) {
+      _roleId = 4;
+    } else {
+      _roleId = 0; // Default or unknown role
+    }
+    return _roleId!; // Return the roleId after setting it
+  }
+
   Future<void> addEmployee() async {
+    isEmployeeAdded.value = true;
     await _edc.addEmployee(
       employee: Employee(
-        name: _name!,
-        role: _role!,
-        email: _email!,
-        nic: _nic!,
-        phone_no: _phone_number!,
-        id: '-11',
-      ),
+          name: _name!,
+          email: _email!,
+          nic: _nic!,
+          phone_no: _phone_number!,
+          roleId: _roleId),
     );
+    isEmployeeAdded.value = false;
+    resetData();
+  }
+
+  void resetData() {
+    _roleId = null;
+    _role = null;
+    _nic = null;
+    _phone_number = null;
+    _name = null;
+    _email = null;
   }
 
   FormValidResponse validationForm() {

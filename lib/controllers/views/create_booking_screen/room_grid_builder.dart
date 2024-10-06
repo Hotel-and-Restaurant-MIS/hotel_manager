@@ -9,19 +9,20 @@ class RoomGridBuilder extends GetxController {
   CreateBookingDataController _cbdc = CreateBookingDataController.instance;
 
   Widget buildGridByRoomId() {
-    List<Widget> children = [];
-    _cbdc.roomList.forEach((room) {
-      children.add(RoomTile(roomNumber: room));
-      print('grid ${_cbdc.roomList}');
-    });
+    return Obx(() {
+      List<Widget> children = [];
+      _cbdc.availableRoomList.forEach((room) {
+        children.add(RoomTile(roomNumber: room));
+        print('grid ${_cbdc.availableRoomList}');
+      });
 
-    return CustomScrollView(
+      return CustomScrollView(
         slivers: <Widget>[
           SliverPadding(
             padding: const EdgeInsets.all(10),
             sliver: SliverGrid.count(
               crossAxisSpacing: 10,
-              childAspectRatio: 90/30,
+              childAspectRatio: 90 / 30,
               mainAxisSpacing: 20,
               crossAxisCount: 4,
               children: children,
@@ -29,6 +30,7 @@ class RoomGridBuilder extends GetxController {
           ),
         ],
       );
-
+    });
   }
+
 }

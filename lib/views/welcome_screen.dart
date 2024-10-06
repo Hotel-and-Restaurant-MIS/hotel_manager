@@ -17,13 +17,14 @@ class WelcomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 80.0),
               Image(
                 image: AssetImage('images/Hotel Manager.png'),
-                height: 400.0,
-                width: 400.0,
+                height: 250.0,
+                width: 250.0,
                 fit: BoxFit.cover,
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 50.0),
               Text(
                 'Luxury',
                 style: TextStyle(
@@ -32,14 +33,14 @@ class WelcomeScreen extends StatelessWidget {
                     fontSize: 45.0),
               ),
               Text(
-                'Restuarant',
+                'Restaurant',
                 style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Garamond',
                     fontSize: 45.0),
               ),
               SizedBox(
-                height: 30.0,
+                height: 70.0,
               ),
               ButtonBlue(
                   buttonText: 'Booking Management Portal',

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/components/booking_status.dart';
+import 'package:hotel_manager_app/constants/booking_constants.dart';
 import 'package:hotel_manager_app/controllers/views/booking_management_screen/booking_list_builder.dart';
+import 'package:hotel_manager_app/controllers/views/create_booking_screen/create_booking_state_controller.dart';
+import 'package:hotel_manager_app/controllers/views/create_booking_screen/room_grid_builder.dart';
 import 'package:hotel_manager_app/views/available_room_screen.dart';
 import 'package:hotel_manager_app/views/create_booking_screen.dart';
 
 class BookingManagementScreen extends StatelessWidget {
-  const BookingManagementScreen({super.key});
+  CreateBookingStateController _cbsc = CreateBookingStateController.instance;
+  RoomGridBuilder _rgb = RoomGridBuilder.instance;
 
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
         double deviceWidth = MediaQuery.of(context).size.width;
-        double deviceHeight = MediaQuery.of(context).size.height;
         return DefaultTabController(
           length: 2,
           child: Scaffold(
@@ -28,6 +30,8 @@ class BookingManagementScreen extends StatelessWidget {
                   color: Colors.blue,
                 ),
                 onPressed: () {
+                  _cbsc.setAvailableRoomToNull();
+                  _rgb.buildGridByRoomId();
                   Get.to(() => CreateBookingScreen());
                 },
               ),
@@ -55,8 +59,16 @@ class BookingManagementScreen extends StatelessWidget {
                       },
                       child: Icon(
                         Icons.event_available,
-                        size: 35.0,
+                        size: 40.0,
                         color: Colors.black,
+                        shadows: [
+                          BoxShadow(
+                            offset: Offset(2.0, 2),
+                            spreadRadius: 2.0,
+                            blurRadius: 10.0,
+                            color: Colors.black38,
+                          ),
+                        ],
                       ),
                     )
                   ],

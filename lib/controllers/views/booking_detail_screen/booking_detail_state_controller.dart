@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/controllers/data/create_booking_data_controller.dart';
+import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
+import 'package:hotel_manager_app/models/booking.dart';
 
-class BookingDetailStateController extends GetxController{
+class BookingDetailStateController extends GetxController {
   static BookingDetailStateController instance = Get.find();
 
-  CreateBookingDataController _cbdc = CreateBookingDataController.instance;
-
+  BookingDataController _bdc = BookingDataController.instance;
   RxBool _isVisible = false.obs;
 
   bool get isVisible => _isVisible.value;
-   bool _isAvailable =false;
+  bool _isAvailable = false;
 
   bool get isAvailable => _isAvailable;
 
@@ -17,38 +17,84 @@ class BookingDetailStateController extends GetxController{
     _isAvailable = value;
   }
 
-  List<String> _availableRoomList=[];
-  List<String> get availableRoomList => _availableRoomList;
+  RxInt _isAvailableRoomCount = 0.obs;
 
+  int get isAvailableRoomCount => _isAvailableRoomCount.value;
+
+  void setIsAvailableRoomCount(int value) {
+    _isAvailableRoomCount.value = value;
+  }
+
+  RxList<String> _availableRoomList = <String>[].obs;
+  List<String> get availableRoomList => _availableRoomList.value;
 
   void setAvailableRoomList(List<String> value) {
-    _availableRoomList = value;
+    _availableRoomList.assignAll(value);
   }
 
   void setIsVisible(bool value) {
     _isVisible.value = value;
   }
-  void changeVisibility(){
+
+  void changeVisibility() {
     print(isVisible);
-    print('button pressed');
-    setIsVisible(!isVisible!);
+    setIsVisible(!isVisible);
   }
-  Future<bool> checkAvailability (
+
+  void resetData() {
+    setAvailableRoomList([]);
+  }
+
+  Future<void> addBooking(Booking booking) async {
+    await _bdc.addBooking(
+      Booking(
+        customerName: booking.customerName,
+        phoneNumber: booking.phoneNumber,
+        nicNumber: booking.nicNumber,
+        email: booking.email,
+        roomType: booking.roomType,
+        noOfRooms: booking.noOfRooms,
+        arrivalDate: booking.arrivalDate,
+        departureDate: booking.departureDate,
+        totalAmount: booking.totalAmount,
+        roomList: availableRoomList,
+      ),
+    );
+    print('state added');
+  }
+
+  Future<void> removeReservation(int reservationId) async {
+    try{
+      print('state start');
+      await _bdc.removeReservation(reservationId);
+      print('satate end');
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
+  Future<bool> checkAvailability(
       {required int noOfRooms,
       required DateTime arrivalDate,
       required DateTime departureDAte,
-      required String roomType}) async{
-    List<DateTime> dateList=[];
+      required String roomType}) async {
+    List<DateTime> dateList = [];
     dateList.add(arrivalDate);
     dateList.add(departureDAte);
-    List<String> roomList= await _cbdc.getAvailableDateRoomList(roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
+    List<String> roomList = await _bdc.getAvailableDateRoomList(
+      roomType: roomType,
+      dateList: dateList,
+      noOfRooms: noOfRooms,
+    );
     setAvailableRoomList(roomList);
-    if(roomList.isEmpty){
-      setIsAvailable(false);
-      return false;
-    }else{
+    setIsAvailableRoomCount(roomList.length);
+    print('available room count : ${availableRoomList.length}');
+    if (roomList.length == noOfRooms) {
       setIsAvailable(true);
       return true;
+    } else {
+      setIsAvailable(false);
+      return false;
     }
   }
 }

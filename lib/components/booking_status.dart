@@ -1,1 +1,0 @@
-const List<String> kBookingStatusList =['Ongoing','Completed'];

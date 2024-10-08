@@ -21,6 +21,16 @@ class CreateBookingDataController extends GetxController {
     await controller._initController();
     return controller;
   }
+  RxBool _isRoomsAvailable = false.obs;
+  get isRoomsAvailable => _isRoomsAvailable.value;
+  void setIsRoomsAvailable(bool value){
+    _isRoomsAvailable.value = value;
+  }
+  RxInt _availableRoomCount = 0.obs;
+  get availableRoomCount => _availableRoomCount.value;
+  void setAvailableRoomCount(int value){
+    _availableRoomCount.value = value;
+  }
 
   Future<void> _initController() async {
     await getRoomPrices();
@@ -64,8 +74,16 @@ class CreateBookingDataController extends GetxController {
       {required String roomType,
       required List<DateTime> dateList,
       required int noOfRooms}) async {
+    setAvailableRoomCount(0);
     _availableRoomList.value = await _cbnc.getAvailableDateRoomList(
         roomType: roomType, dateList: dateList, noOfRooms: noOfRooms);
+    if(_availableRoomList.length == noOfRooms){
+      setIsRoomsAvailable(true);
+
+    }else{
+      setIsRoomsAvailable(false);
+      setAvailableRoomCount(_availableRoomList.length);
+    }
     return availableRoomList;
   }
 

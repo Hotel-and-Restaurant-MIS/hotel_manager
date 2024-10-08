@@ -22,6 +22,7 @@ class CreateBookingStateController extends GetxController {
   RxBool _isAddingBooking = false.obs;
   bool get isAddingBooking => _isAddingBooking.value;
 
+  RxBool isFirstTime = true.obs;
   void setIsAddingBooking(bool value) {
     _isAddingBooking.value = value;
   }
@@ -126,6 +127,7 @@ class CreateBookingStateController extends GetxController {
   }
 
   void resetData() {
+
     _totalPrice.value = 0.0;
     _days = <DateTime>[].obs;
     _roomType = null;
@@ -136,10 +138,12 @@ class CreateBookingStateController extends GetxController {
     _availableRooms = [].obs;
     _email = null;
     _cbdc.setAvailableRoomToNull();
+    isFirstTime.value = true;
 
   }
 
   Future<void> getRoomList() async {
+    isFirstTime.value = false;
     setIsGettingRoomList(true);
     if (_noOfRooms != null &&
         _noOfRooms != 0 &&

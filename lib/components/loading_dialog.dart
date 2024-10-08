@@ -7,14 +7,13 @@ class LoadingDialog {
   LoadingDialog({
     this.callerFunction,
     this.onErrorCallBack,
-    this.endingFunction,
+
   }) {
     _loadingDialog();
   }
 
   final FutureOr<void> Function()? callerFunction;
   final void Function(Object? error)? onErrorCallBack;
-  final void Function()? endingFunction;
 
   void _loadingDialog() async {
     Get.dialog(
@@ -37,8 +36,7 @@ class LoadingDialog {
     if (callerFunction != null) {
       try {
         await callerFunction!();
-        Get.back();
-        endingFunction!();
+       Get.back();
       } catch (e) {
         Get.back();
         if (onErrorCallBack != null) {

@@ -11,6 +11,8 @@ class BookingDetailStateController extends GetxController {
   bool get isVisible => _isVisible.value;
   bool _isAvailable = false;
 
+  RxBool isCalling = false.obs;
+
   bool get isAvailable => _isAvailable;
 
   void setIsAvailable(bool value) {
@@ -46,6 +48,7 @@ class BookingDetailStateController extends GetxController {
   }
 
   Future<void> addBooking(Booking booking) async {
+    isCalling.value = true;
     await _bdc.addBooking(
       Booking(
         customerName: booking.customerName,
@@ -60,10 +63,13 @@ class BookingDetailStateController extends GetxController {
         roomList: availableRoomList,
       ),
     );
+    await removeReservation(booking.bookingId!);
     print('state added');
+    isCalling.value = false;
   }
 
   Future<void> removeReservation(int reservationId) async {
+    isCalling.value = true;
     try{
       print('state start');
       await _bdc.removeReservation(reservationId);
@@ -72,6 +78,7 @@ class BookingDetailStateController extends GetxController {
     catch(e){
       print(e.toString());
     }
+    isCalling.value = false;
   }
   Future<bool> checkAvailability(
       {required int noOfRooms,

@@ -254,52 +254,70 @@ class BookingDetailScreen extends StatelessWidget {
                   height: 20.0,
                 ),
                 Visibility(
-                    visible: !isCompleted,
-                    child: Column(
-                      children: [
-                        Center(
-                          child: ButtonBlue(
-                              buttonText: 'Confirm Reservation',
-                              ontap: () async {
-                                LoadingDialog(
-                                  callerFunction: () async {
-                                    await _bdsc.addBooking(booking);
-                                    await _bdsc
-                                        .removeReservation(booking.bookingId!);
-                                  },
-                                  onErrorCallBack: (e) {
-                                    print(e.toString());
-                                  },
-                                );
-                                Get.back();
-                                print('reserve button pressed');
+                  visible: !isCompleted,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: ButtonBlue(
+                          buttonText: 'Confirm Reservation',
+                          ontap: () async {
+                            await LoadingDialog(
+                              endingFunction:(){Get.back();} ,
+                              callerFunction: () async {
+                                await _bdsc.addBooking(booking);
+                                await _bdsc
+                                    .removeReservation(booking.bookingId!);
                               },
-                              width: 150.0),
-                        ),
-                        SizedBox(
-                          height: 30.0,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
+                              onErrorCallBack: (e) {
+                                print(
+                                  e.toString(),
+                                );
+                              },
+                            );
+                            print(
+                              'reserve button pressed',
+                            );
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(10.0)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                'Cancel Reservation',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                          width: 150.0,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      GestureDetector(
+                        onTap: () async{
+                           LoadingDialog(
+                            endingFunction:(){Get.back();} ,
+                            callerFunction: () async {
+                              await _bdsc
+                                  .removeReservation(booking.bookingId!);
+                            },
+                            onErrorCallBack: (e) {
+                              print(
+                                e.toString(),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Cancel Reservation',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    )),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 30.0,
                 ),

@@ -18,6 +18,13 @@ class BookingDataController extends GetxController {
 
   List<String> get availableRoomList => _availableRoomList.value;
 
+  RxBool _isGettingBookings = false.obs;
+
+  bool get isGettingBookings => _isGettingBookings.value;
+  void setIsGettingBookings(bool value){
+    _isGettingBookings.value = value;
+  }
+
   void setRoomList(List<String> value) {
     _availableRoomList.value = value;
   }
@@ -33,6 +40,7 @@ class BookingDataController extends GetxController {
   }
 
   Future<void> _getAllBookings() async {
+    setIsGettingBookings(true);
     List<Booking> bookingList = [];
     List<Map<String, dynamic>> bookingMapList = await _bdnc.getBookingList();
     List<Map<String, dynamic>> reservationMapList =
@@ -52,6 +60,7 @@ class BookingDataController extends GetxController {
         _bookingDataMap[booking.bookingStatus]!.add(booking);
       }
     });
+    setIsGettingBookings(false);
   }
 
   Future<List<String>> getAvailableDateRoomList(
@@ -78,7 +87,7 @@ class BookingDataController extends GetxController {
   Future<void> removeReservation(int reservationId) async {
     try{
       print('data start');
-      //  await _bdnc.removeReservation(reservationId);
+      await _bdnc.removeReservation(reservationId);
       _bookingDataMap['OnGoing']?.removeWhere((booking) => booking.bookingId == reservationId); //remove reservation from the reservation list.
       print('${_bookingDataMap['OnGoing']?.length}');
       await await Future.delayed(Duration(seconds: 15));

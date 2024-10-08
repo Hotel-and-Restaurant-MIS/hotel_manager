@@ -71,7 +71,12 @@ class BookingNetworkController extends GetxController {
   }
 
   Future<void> removeReservation(int id)async{
-    //TODO: connect with the back end;
+    Uri url = Uri.parse('${NetworkConstants.baseUrl}/reservations/remove?reservationId=$id');
+    var response = await http.delete(url);
+
+    if(response.statusCode != 204){
+      print('Error occurs delete reservation with : ${response.statusCode}');
+    }
     print('networkCalled');
   }
 }

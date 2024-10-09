@@ -1,0 +1,1 @@
+const List<String> kReviewNames = ['Pending','Approved'];

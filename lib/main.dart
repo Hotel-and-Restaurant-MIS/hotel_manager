@@ -14,6 +14,7 @@ class hotel_manager_app extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
     home: LoadingScreen(),
     );
   }

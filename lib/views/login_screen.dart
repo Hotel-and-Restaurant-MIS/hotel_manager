@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Restaurant',
+                  'Hotel',
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Garamond',

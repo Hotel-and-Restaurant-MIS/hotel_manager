@@ -86,12 +86,8 @@ class BookingDataController extends GetxController {
   
   Future<void> removeReservation(int reservationId) async {
     try{
-      print('data start');
       await _bdnc.removeReservation(reservationId);
       _bookingDataMap['OnGoing']?.removeWhere((booking) => booking.bookingId == reservationId); //remove reservation from the reservation list.
-      print('${_bookingDataMap['OnGoing']?.length}');
-      await await Future.delayed(Duration(seconds: 15));
-      print('data end');
     }catch(e){
       print(e.toString());
     }

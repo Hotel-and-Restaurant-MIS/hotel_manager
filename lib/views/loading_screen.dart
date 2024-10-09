@@ -3,6 +3,7 @@ import 'package:hotel_manager_app/views/available_room_screen.dart';
 import 'package:hotel_manager_app/views/booking_management_screen.dart';
 import 'package:hotel_manager_app/views/create_booking_screen.dart';
 import 'package:hotel_manager_app/views/login_screen.dart';
+import 'package:hotel_manager_app/views/review_management_screen.dart';
 import 'package:hotel_manager_app/views/welcome_screen.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

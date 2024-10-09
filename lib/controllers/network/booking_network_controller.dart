@@ -77,6 +77,5 @@ class BookingNetworkController extends GetxController {
     if(response.statusCode != 204){
       print('Error occurs delete reservation with : ${response.statusCode}');
     }
-    print('networkCalled');
   }
 }

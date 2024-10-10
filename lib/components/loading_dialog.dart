@@ -7,6 +7,7 @@ class LoadingDialog {
   LoadingDialog({
     this.callerFunction,
     this.onErrorCallBack,
+
   }) {
     _loadingDialog();
   }
@@ -35,7 +36,7 @@ class LoadingDialog {
     if (callerFunction != null) {
       try {
         await callerFunction!();
-        Get.back();
+       Get.back();
       } catch (e) {
         Get.back();
         if (onErrorCallBack != null) {

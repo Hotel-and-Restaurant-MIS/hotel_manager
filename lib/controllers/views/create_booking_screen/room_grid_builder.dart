@@ -9,28 +9,41 @@ class RoomGridBuilder extends GetxController {
   CreateBookingDataController _cbdc = CreateBookingDataController.instance;
 
   Widget buildGridByRoomId() {
-    return Obx(() {
-      List<Widget> children = [];
-      _cbdc.availableRoomList.forEach((room) {
-        children.add(RoomTile(roomNumber: room));
-        print('grid ${_cbdc.availableRoomList}');
-      });
+    bool firstTime = true;
+    return Obx(
+      () {
+        List<Widget> children = [];
+        _cbdc.availableRoomList.forEach((room) {
+          children.add(RoomTile(roomNumber: room));
+        });
 
-      return CustomScrollView(
-        slivers: <Widget>[
-          SliverPadding(
-            padding: const EdgeInsets.all(10),
-            sliver: SliverGrid.count(
-              crossAxisSpacing: 10,
-              childAspectRatio: 90 / 30,
-              mainAxisSpacing: 20,
-              crossAxisCount: 4,
-              children: children,
-            ),
-          ),
-        ],
-      );
-    });
+        return _cbdc.isRoomsAvailable
+            ? CustomScrollView(
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.all(10),
+                    sliver: SliverGrid.count(
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 90 / 30,
+                      mainAxisSpacing: 20,
+                      crossAxisCount: 4,
+                      children: children,
+                    ),
+                  ),
+                ],
+              )
+            : Obx(
+                () => Center(
+                  child: Text(
+                    'Only ${_cbdc.availableRoomCount} rooms are available !',
+                    style: TextStyle(
+                      fontSize: 19.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              );
+      },
+    );
   }
-
 }

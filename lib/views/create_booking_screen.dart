@@ -16,7 +16,6 @@ class CreateBookingScreen extends StatelessWidget {
   CreateBookingStateController _cbsc = CreateBookingStateController.instance;
   RoomGridBuilder _rgb = RoomGridBuilder.instance;
 
-
   @override
   Widget build(BuildContext context) {
     _cbsc.resetData();
@@ -274,12 +273,16 @@ class CreateBookingScreen extends StatelessWidget {
                         ),
                         Stack(
                           children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15.0),
-                              child: Container(
-                                height: 100.0,
-                                width: double.infinity,
-                                child: _rgb.buildGridByRoomId(),
+                            Obx(
+                              () => Padding(
+                                padding: const EdgeInsets.only(right: 15.0),
+                                child: Container(
+                                  height: 100.0,
+                                  width: double.infinity,
+                                  child: _cbsc.isFirstTime.value
+                                      ? SizedBox()
+                                      : _rgb.buildGridByRoomId(),
+                                ),
                               ),
                             ),
                             // LoadingAnimation(widgetControllerValue: _cbsc.isGettingRoomList),

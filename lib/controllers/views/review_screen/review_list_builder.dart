@@ -1,17 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hotel_manager_app/components/booking_tile.dart';
-import 'package:hotel_manager_app/controllers/data/booking_data_controller.dart';
-import 'package:hotel_manager_app/views/booking_detail_screen.dart';
+import 'package:hotel_manager_app/components/review_tile.dart';
+import 'package:hotel_manager_app/controllers/data/review_data_controller.dart';
+import 'package:hotel_manager_app/views/review_details_screen.dart';
 
-class BookingListBuilder extends GetxController {
-  static BookingListBuilder instance = Get.find();
-  BookingDataController _bdc = BookingDataController.instance;
+
+class ReviewListBuilder extends GetxController{
+
+  static ReviewListBuilder instance = Get.find();
+
+  ReviewDataController _rdc = ReviewDataController.instance;
 
   Widget buildListByStatus({required String status}) {
     // Use _bdc.isGettingBookings to control loading animation
     return Obx(() {
-      if (_bdc.isGettingBookings) {
+      if (_rdc.isGettingReviews) {
         // Show loading animation while bookings are being fetched
         return Center(
           child: Row(
@@ -28,8 +32,8 @@ class BookingListBuilder extends GetxController {
             ],
           ),
         );
-      } else if (_bdc.bookingDataMap[status] == null ||
-          _bdc.bookingDataMap[status]!.isEmpty) {
+      } else if (_rdc.reviewDataMap[status] == null ||
+          _rdc.reviewDataMap[status]!.isEmpty) {
         // Show message if no bookings are found after loading
         return Center(
           child: Text(
@@ -39,22 +43,21 @@ class BookingListBuilder extends GetxController {
         );
       } else {
         // Show booking list once data is loaded
-        List<Widget> children = _bdc.bookingDataMap[status]!.map((booking) {
-          return BookingTile(
-            bookingId: booking.bookingId!,
-            nic: booking.nicNumber,
-            arrivalDate: booking.arrivalDate,
+        List<Widget> children = _rdc.reviewDataMap[status]!.map((review) {
+          return ReviewTile(
+            reviewId: review.reviewId,
+            customerName: review.customerName,
             onTap: () {
-              if (booking.bookingStatus == 'OnGoing') {
-                Get.to(() => BookingDetailScreen(
-                      booking: booking,
-                      isCompleted: false,
-                    ));
-              } else if (booking.bookingStatus == 'Completed') {
-                Get.to(() => BookingDetailScreen(
-                      booking: booking,
-                      isCompleted: true,
-                    ));
+              if (review.reviewStatus == 'Pending') {
+                Get.to(() => ReviewDetailsScreen(
+                  review: review,
+                  isApproved: false,
+                ));
+              } else if (review.reviewStatus == 'Approved') {
+                Get.to(() => ReviewDetailsScreen(
+                  review: review,
+                  isApproved: true,
+                ));
               } else {
                 print('Error Occurs, booking status mismatch!');
               }

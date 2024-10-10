@@ -65,11 +65,11 @@ class ReviewDataController extends GetxController{
     try{
       Map<String, dynamic> reviewMap = await _rnc.approveReview(reviewId);
       _reviewDataMap['Approved']?.add(Review.fromMap(reviewMap));
+      _reviewDataMap['Pending']?.removeWhere((review)=> review.reviewId == reviewId);
     }catch(e){
       print('Error occurs approving review');
       print(e.toString());
     }
-
  }
 
   Future<void> removeReview(int reviewId) async{

@@ -36,7 +36,7 @@ class ReviewNetworkController extends GetxController {
   Future<List<Map<String, dynamic>>> getApprovedReviewList() async {
     List<Map<String, dynamic>> reviewList = [];
 
-    Uri url = Uri.parse('${NetworkConstants.baseUrl}/review/approved');
+    Uri url = Uri.parse('${NetworkConstants.baseUrl}/review/all');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -59,10 +59,9 @@ class ReviewNetworkController extends GetxController {
 
   Future<Map<String, dynamic>> approveReview(int reviewId) async {
     try {
-      //TODO: update url
       Uri url = Uri.parse(
-          '${NetworkConstants.baseUrl}/reservations/remove?reviewId=$reviewId');
-      var response = await http.get(url);
+          '${NetworkConstants.baseUrl}/review/temp/approve?tempReviewId=$reviewId');
+      var response = await http.post(url);
 
       if (response.statusCode == 200) {
         try {
@@ -82,12 +81,16 @@ class ReviewNetworkController extends GetxController {
   }
 
   Future<void> removeReview(int id)async{
-    //TODO: update url
-    Uri url = Uri.parse('${NetworkConstants.baseUrl}/reservations/remove?reservationId=$id');
-    var response = await http.delete(url);
+    try{
+      Uri url = Uri.parse('${NetworkConstants.baseUrl}/review/temp/delete?tempReviewId=$id');
+      var response = await http.delete(url);
 
-    if(response.statusCode != 204){
-      print('Error occurs remove review with : ${response.statusCode}');
+      if(response.statusCode != 204){
+        print('Error occurs remove review with : ${response.statusCode}');
+      }
+    }catch(e){
+      print('Error occurs deleting review');
+      print(e.toString());
     }
   }
 }

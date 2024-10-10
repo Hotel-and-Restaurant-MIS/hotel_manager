@@ -21,7 +21,6 @@ import 'package:hotel_manager_app/controllers/views/employee_screen/employee_lis
 import 'package:hotel_manager_app/controllers/views/login_screen/login_state_controller.dart';
 import 'package:hotel_manager_app/controllers/views/review_details_screen/review_details_state_controller.dart';
 import 'package:hotel_manager_app/controllers/views/review_screen/review_list_builder.dart';
-import 'package:hotel_manager_app/controllers/views/review_screen/review_state_controller.dart';
 
 import 'controllers/views/create_booking_screen/create_booking_state_controller.dart';
 
@@ -43,7 +42,6 @@ class ControllerInitializer {
       Get.put(ReviewListBuilder());
       Get.put(ReviewDetailsStateController());
       Get.put(ReviewDetailsStateController());
-      Get.put(ReviewStateController());
       await Get.putAsync(() => CreateBookingDataController.create());
       Get.put(AvailableRoomsNetworkController());
       Get.put(AvailableRoomsDataController());

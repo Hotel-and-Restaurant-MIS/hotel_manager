@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_manager_app/constants/review_constants.dart';
 import 'package:hotel_manager_app/controllers/views/review_screen/review_list_builder.dart';
-import 'package:hotel_manager_app/controllers/views/review_screen/review_state_controller.dart';
+
 
 class ReviewManagementScreen extends StatelessWidget {
-  ReviewStateController _rsc = ReviewStateController.instance;
 
   @override
   Widget build(BuildContext context) {

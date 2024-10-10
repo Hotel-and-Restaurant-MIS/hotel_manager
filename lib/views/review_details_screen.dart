@@ -176,7 +176,21 @@ class ReviewDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            Obx(
+                  () => _rdsc.isCalling
+                  ? Positioned.fill(
+                child: Container(
+                  color: Colors.black.withOpacity(0.5),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              )
+                  : SizedBox.shrink(),
+            ),
           ],
         ),
       ),

@@ -25,33 +25,34 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: initController(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return LoginScreen();
-          } else if (snapshot.hasError) {
-            return Scaffold(
-              body: SafeArea(
-                child: Center(
-                  child: Text(
-                    'An Unexpected error occurs.',
-                    style: TextStyle(color: Colors.red),
-                  ),
+      future: initController(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return LoginScreen();
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: SafeArea(
+              child: Center(
+                child: Text(
+                  'An Unexpected error occurs.',
+                  style: TextStyle(color: Colors.red),
                 ),
               ),
-            );
-          } else {
-            return Scaffold(
-              body: SafeArea(
-                child: Center(
-                  child: LoadingAnimationWidget.threeArchedCircle(
-                    color: Colors.blue,
-                    size: 50.0,
-                  ),
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: SafeArea(
+              child: Center(
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: Colors.blue,
+                  size: 50.0,
                 ),
               ),
-            );
-          }
-        });
+            ),
+          );
+        }
+      },
+    );
   }
 }

@@ -1,6 +1,6 @@
 class NetworkConstants{
   NetworkConstants._();
 
-  static const String baseUrl = 'http://34.136.246.135';
+  static const String baseUrl = 'http://35.223.107.248/api';
 
 }

@@ -15,8 +15,8 @@ class LoginDataController extends GetxController{
     _isValidUser.value = value;
   }
 
-  Future<void> CheckUser(String password) async{
-    setIsValidUser(await _lnc.authUser(password));
+  Future<void> CheckUser(String password,String userName) async{
+    setIsValidUser(await _lnc.authUser(password,userName));
   }
 
 }

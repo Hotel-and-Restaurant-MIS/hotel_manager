@@ -129,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                   () => Visibility(
                     visible: !_ldc.isValidUser && _lsc.isSubmitted.value,
                     child: Text(
-                      'Incorrect Password!',
+                      'Incorrect Password or User Name !',
                       style: TextConstants.kSubTextStyle(
                         textColour: Colors.red,
                       ),
